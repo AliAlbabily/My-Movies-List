@@ -12,7 +12,7 @@ import MovieInformation from './components/movie-information.component';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div>
         <Navbar />
         <Route path="/" component={Home} exact />
         <Route path="/searchmovies" component={SearchMovies} />
