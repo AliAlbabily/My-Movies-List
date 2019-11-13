@@ -13,7 +13,7 @@ class MovieInformation extends Component {
             movieGenre: '',
             movieRuntime: '',
             moviePlot: '',
-            selectValue: 'Watching'
+            selectedValue: 'Watching'
         }
     }
 
@@ -35,14 +35,27 @@ class MovieInformation extends Component {
 
     handleSelectChange = event => {
         this.setState({
-            selectValue: event.target.value
+            selectedValue: event.target.value
         })
     }
 
     handleSubmit = event => {
         event.preventDefault();
 
-        console.log("Working")
+        const movie = {
+            poster: this.state.moviePoster,
+            title: this.state.movieTitle,
+            genre: this.state.movieGenre,
+            runtime: this.state.movieRuntime,
+            plot: this.state.moviePlot,
+            status: this.state.selectedValue 
+        }
+
+        console.log(movie);
+
+        // Send http post-request to the following endpoint
+        axios.post('http://localhost:5000/movies/add', movie)
+            .then(res => console.log(res.data));
     }
 
     render() {
@@ -62,7 +75,7 @@ class MovieInformation extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <div className="movie-form-c1">
                                 <label className="movie-form-label">Add to my list: </label>
-                                <select value={this.state.selectValue} onChange={this.handleSelectChange} required>
+                                <select value={this.state.selectedValue} onChange={this.handleSelectChange} required>
                                     <option>Watching</option>
                                     <option>Watch later</option>
                                     <option>Watched</option>   
