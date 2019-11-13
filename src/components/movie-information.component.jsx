@@ -12,7 +12,8 @@ class MovieInformation extends Component {
             movieTitle: '',
             movieGenre: '',
             movieRuntime: '',
-            moviePlot: ''
+            moviePlot: '',
+            selectValue: 'Watching'
         }
     }
 
@@ -32,14 +33,47 @@ class MovieInformation extends Component {
             })
     }
 
+    handleSelectChange = event => {
+        this.setState({
+            selectValue: event.target.value
+        })
+    }
+
+    handleSubmit = event => {
+        event.preventDefault();
+
+        console.log("Working")
+    }
+
     render() {
         return (
-            <div>
-                <img src={this.state.moviePoster} alt="" />
-                <p className="movie-title">{this.state.movieTitle}</p>
-                <p className="movie-genre">{this.state.movieGenre}</p>
-                <p className="movie-runtime">{this.state.movieRuntime}</p>
-                <p className="movie-plot">{this.state.moviePlot}</p>
+            <div className="movie-content-container">
+                <div className="movie-content-container-c1">
+                    <img src={this.state.moviePoster} className="movie-poster-mini" alt="" />
+                </div>
+                <div className="movie-content-container-c2">
+                    <div className="movie-content-container-c2-r1"> 
+                        <p className="movie-title">{this.state.movieTitle}</p>
+                        <p className="movie-genre">{this.state.movieGenre}</p>
+                        <p className="movie-runtime">{this.state.movieRuntime}</p>
+                        <p className="movie-plot">{this.state.moviePlot}</p>
+                    </div>
+                    <div className="movie-content-container-c2-r2">
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="movie-form-c1">
+                                <label className="movie-form-label">Add to my list: </label>
+                                <select value={this.state.selectValue} onChange={this.handleSelectChange} required>
+                                    <option>Watching</option>
+                                    <option>Watch later</option>
+                                    <option>Watched</option>   
+                                </select>
+                            </div>
+                            <div className="movie-form-c2">
+                                <button type="submit" className="movie-form-btn">Save option</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }
