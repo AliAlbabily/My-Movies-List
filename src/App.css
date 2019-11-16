@@ -153,3 +153,22 @@ a:hover {
   justify-content: center;
   padding: 10px;
 }
+
+.movie-content-container-c2-r3 {
+  display: flex;
+  justify-content: center;
+}
+
+.post-mess-returned {
+  font-weight: 600;
+  font-family: 'Oswald', sans-serif;
+  margin: unset;
+}
+
+.successfull-mess-return {
+  color: darkgreen;
+}
+
+.unsuccessfull-mess-return {
+  color: darkred;
+}

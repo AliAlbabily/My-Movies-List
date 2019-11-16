@@ -13,7 +13,10 @@ class MovieInformation extends Component {
             movieGenre: '',
             movieRuntime: '',
             moviePlot: '',
-            selectedValue: 'Watching'
+            selectedValue: 'Watching',
+            postMessage: '',
+            // TODO: not a likeable solution
+            postMessClasses: ''
         }
     }
 
@@ -55,7 +58,21 @@ class MovieInformation extends Component {
 
         // Send http post-request to the following endpoint
         axios.post('http://localhost:5000/movies/add', movie)
-            .then(res => console.log(res.data));
+            .then(res => {
+                this.setState({
+                    postMessage: "The movie was successfully added to your list!",
+                    postMessClasses: "post-mess-returned successfull-mess-return"
+                });
+                console.log(res.data);
+            })
+            // TODO: Not sure if this is a good way of returning an error
+            .catch(error => {
+                this.setState({
+                    postMessage: "Something went wrong!",
+                    postMessClasses: "post-mess-returned unsuccessfull-mess-return"
+                })
+                console.log(error);
+            });
     }
 
     render() {
@@ -85,6 +102,9 @@ class MovieInformation extends Component {
                                 <button type="submit" className="movie-form-btn">Save option</button>
                             </div>
                         </form>
+                    </div>
+                    <div className="movie-content-container-c2-r3">
+                        <p className={this.state.postMessClasses}>{this.state.postMessage}</p>
                     </div>
                 </div>
             </div>
