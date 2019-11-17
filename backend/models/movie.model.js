@@ -7,6 +7,7 @@ const movieSchema = new Schema({
     genre: { type: String, required: true },
     runtime: { type: String, required: true },
     plot: { type: String, required: true },
+    imdbid: { type: String, required: true },
     status: { type: String, required: true } 
 },
 {

@@ -13,6 +13,7 @@ class MovieInformation extends Component {
             movieGenre: '',
             movieRuntime: '',
             moviePlot: '',
+            movieID: '',
             selectedValue: 'Watching',
             postMessage: '',
             // TODO: not a likeable solution
@@ -28,12 +29,32 @@ class MovieInformation extends Component {
                     movieTitle: response.data.Title,
                     movieGenre: response.data.Genre,
                     movieRuntime: response.data.Runtime,
-                    moviePlot: response.data.Plot
+                    moviePlot: response.data.Plot,
+                    movieID: response.data.imdbID
                 })
             })
             .catch(function(error){
                 console.log(error);
             })
+    }
+
+    postNewItem(movieObj) {
+        axios.post('http://localhost:5000/movies/add', movieObj)
+            .then(res => {
+                this.setState({
+                    postMessage: "The movie was successfully added to your list!",
+                    postMessClasses: " successfull-mess"
+                });
+                console.log(res.data);
+            })
+            // TODO: Not sure if this is a good way of returning an error
+            .catch(error => {
+                this.setState({
+                    postMessage: "Something went wrong!",
+                    postMessClasses: " unsuccessfull-mess"
+                })
+                console.log(error);
+            });
     }
 
     handleSelectChange = event => {
@@ -51,28 +72,27 @@ class MovieInformation extends Component {
             genre: this.state.movieGenre,
             runtime: this.state.movieRuntime,
             plot: this.state.moviePlot,
+            imdbid: this.state.movieID,
             status: this.state.selectedValue 
         }
 
         console.log(movie);
 
-        // Send http post-request to the following endpoint
-        axios.post('http://localhost:5000/movies/add', movie)
-            .then(res => {
-                this.setState({
-                    postMessage: "The movie was successfully added to your list!",
-                    postMessClasses: "post-mess-returned successfull-mess-return"
-                });
-                console.log(res.data);
+        // loop through all the imdbIDs in the database and compare them to the new imdbID
+        axios.get('http://localhost:5000/movies/')
+            .then(response => {
+                let movieArr = response.data.map(movieDbObj => movieDbObj.imdbid);
+                if(movieArr.includes(movie.imdbid)) {
+                    this.setState({
+                        postMessage: 'This movie already exists in your list!',
+                        postMessClasses: ''
+                    })
+                } 
+                else {
+                    // Send http post-request to the following endpoint
+                    this.postNewItem(movie);
+                }
             })
-            // TODO: Not sure if this is a good way of returning an error
-            .catch(error => {
-                this.setState({
-                    postMessage: "Something went wrong!",
-                    postMessClasses: "post-mess-returned unsuccessfull-mess-return"
-                })
-                console.log(error);
-            });
     }
 
     render() {
@@ -104,7 +124,7 @@ class MovieInformation extends Component {
                         </form>
                     </div>
                     <div className="movie-content-container-c2-r3">
-                        <p className={this.state.postMessClasses}>{this.state.postMessage}</p>
+                        <p className={"post-mess-returned" + this.state.postMessClasses}>{this.state.postMessage}</p>
                     </div>
                 </div>
             </div>

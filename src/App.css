@@ -165,10 +165,10 @@ a:hover {
   margin: unset;
 }
 
-.successfull-mess-return {
+.successfull-mess {
   color: darkgreen;
 }
 
-.unsuccessfull-mess-return {
+.unsuccessfull-mess {
   color: darkred;
 }
