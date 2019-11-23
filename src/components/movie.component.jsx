@@ -15,7 +15,7 @@ class Movie extends Component {
 
     render() { 
         return ( 
-            <Link to={"/movie/"+this.state.movieId}>
+            <Link to={"/movies/"+this.state.movieId}>
                 <img src={this.state.movieSource} className="movie-poster" alt="" />
             </Link>
         );
