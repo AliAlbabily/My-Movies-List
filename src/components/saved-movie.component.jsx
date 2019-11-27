@@ -21,7 +21,9 @@ class SavedMovie extends Component {
                 <td>{this.props.movie.title}</td>
                 <td>{this.props.movie.genre}</td>
                 <td>{this.props.movie.status}</td>
-                <td>Edit | Remove</td>
+                <td>
+                    <i class="far fa-edit"></i> Edit | <i class="fas fa-trash"></i> Remove
+                </td>
             </tr>
         );
     }

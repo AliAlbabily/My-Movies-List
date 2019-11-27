@@ -44,8 +44,8 @@ class MyMoviesList extends Component {
                 <table className="content-table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Image</th>
+                            <th># <i class="fas fa-sort-numeric-down"></i></th>
+                            <th><i class="fas fa-images"></i> Image</th>
                             <th>Title</th>
                             <th>Genre</th>
                             <th>Status</th>
