@@ -22,7 +22,8 @@ class SavedMovie extends Component {
                 <td>{this.props.movie.genre}</td>
                 <td>{this.props.movie.status}</td>
                 <td>
-                    <i class="far fa-edit"></i> Edit | <i class="fas fa-trash"></i> Remove
+                    <i className="far fa-edit"></i> Edit | 
+                    <i className="fas fa-trash"></i> <a className="table-remove-btn" href="#" onClick={() => { this.props.deleteMovie(this.props.movie._id) }}>Remove</a>
                 </td>
             </tr>
         );
