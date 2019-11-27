@@ -10,7 +10,7 @@ class Navbar extends Component {
                 <div className="navbar-first-column">
                     <Link to="/" className="li-style">Home</Link>
                     <Link to="/searchmovies" className="li-style">Search for movies</Link>
-                    <Link to="/mymovieslist" className="li-style">My movies list</Link>
+                    <Link to="/mymovieslist" className="li-style">My list of Movies</Link>
                 </div>
                 <div className="navbar-second-column">
                     <Link to="/login" className="li-style">Log in</Link>

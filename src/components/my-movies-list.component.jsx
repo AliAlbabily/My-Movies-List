@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../App.css';
 
 import SavedMovie from './saved-movie.component';
 
@@ -9,7 +10,7 @@ class MyMoviesList extends Component {
         super(props);
 
         this.state = {
-            allMovies: [] 
+            allMovies: []
         }
     }
 
@@ -30,15 +31,31 @@ class MyMoviesList extends Component {
     }
 
     printMovies() {
+        let itemNumberCounter = 0; 
         return this.state.allMovies.map(movieObj => {
-            return <SavedMovie movie={movieObj} key={movieObj.imdbid} />
+            itemNumberCounter++;
+            return <SavedMovie movie={movieObj} number={itemNumberCounter} key={movieObj.imdbid} />
         })
     }
 
     render() { 
         return ( 
             <div>
-                {this.printMovies()}
+                <table className="content-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Genre</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.printMovies()}
+                    </tbody>
+                </table>
             </div>
         );
     }
