@@ -9,8 +9,6 @@ class MyMoviesList extends Component {
     constructor(props) {
         super(props);
 
-        this.deleteMovie = this.deleteMovie.bind(this);
-
         this.state = {
             allMovies: []
         }
@@ -40,7 +38,7 @@ class MyMoviesList extends Component {
         })
     }
 
-    deleteMovie(id) {
+    deleteMovie = (id) => {
         axios.delete('http://localhost:5000/movies/'+id)
             .then(response => { console.log(response.data)});
         this.setState({

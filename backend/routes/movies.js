@@ -34,10 +34,36 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error ' + err));
 });
 
+// ***   Get request   ***/
+router.route('/:id').get((req, res) => {
+    Movie.findById(req.params.id)
+        .then(movie => res.json(movie))
+        .catch(err => res.status(400).json('Error: ' + err))
+});
+
 // ***   Delete request   ***/
 router.route('/:id').delete((req, res) => {
     Movie.findByIdAndDelete(req.params.id)
         .then(() => res.json('Movie deleted.'))
+        .catch(err => res.status(400).json('Error: ' + err))
+});
+
+// ***   Update request   ***/
+router.route('/update/:id').post((req, res) => {
+    Movie.findById(req.params.id)
+        .then(movie => {
+            movie.poster = req.body.poster;
+            movie.title = req.body.title;
+            movie.genre = req.body.genre;
+            movie.runtime = req.body.runtime;
+            movie.plot = req.body.plot;
+            movie.imdbid = req.body.imdbid;
+            movie.status = req.body.status;
+
+            movie.save()
+                .then(() => res.json('Movie updated!'))
+                .catch(err => res.status(400).json('Error: ' + err))
+        })
         .catch(err => res.status(400).json('Error: ' + err))
 });
 

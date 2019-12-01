@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 
 class SavedMovie extends Component {
@@ -22,7 +23,7 @@ class SavedMovie extends Component {
                 <td>{this.props.movie.genre}</td>
                 <td>{this.props.movie.status}</td>
                 <td>
-                    <i className="far fa-edit"></i> Edit | 
+                    <i className="far fa-edit"></i> <Link to={"/edit-movie-inforamtion/"+this.props.movie._id} className="table-edit-btn">Edit</Link> | 
                     <i className="fas fa-trash"></i> <a className="table-remove-btn" href="#" onClick={() => { this.props.deleteMovie(this.props.movie._id) }}>Remove</a>
                 </td>
             </tr>
