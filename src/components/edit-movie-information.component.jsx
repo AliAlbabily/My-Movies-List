@@ -17,10 +17,7 @@ class EditMovieInformation extends Component {
             selectedValue: '',
             postMessage: '',
             // TODO: not a likeable solution
-            postMessClasses: '',
-            moviesMongoDB: [],
-            // Not secure to have a mongoDB movie _id written here ? 
-            movieMongoDB_ID: ''
+            postMessClasses: ''
         }
     }
     
