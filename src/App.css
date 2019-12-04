@@ -173,11 +173,47 @@ a:hover {
   color: darkred;
 }
 
+/* My list of Movies - container */
+
+.moviesList-container {
+  max-width: 1200px;
+  margin: 25px auto 25px auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.moviesList-c1 {
+  width: 1200px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.moviesList-c1-filter-btn {
+  background-color: #000000;
+  border: none;
+  color: white;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  margin: 0px 3px;
+  box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.moviesList-c1-filter-btn:hover {
+  cursor: pointer;
+}
+
 /* Table */
 
 .content-table {
   font-family: 'Oswald', sans-serif;
-  margin: 25px auto 25px auto;
   border-collapse: collapse;
   border-spacing: 0;
   font-size: 1em;
