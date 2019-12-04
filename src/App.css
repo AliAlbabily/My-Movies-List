@@ -210,6 +210,10 @@ a:hover {
   cursor: pointer;
 }
 
+.filter-is-clicked {
+  background-color: #aeaeae;
+}
+
 /* Table */
 
 .content-table {

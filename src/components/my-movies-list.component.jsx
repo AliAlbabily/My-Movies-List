@@ -15,7 +15,11 @@ class MyMoviesList extends Component {
             planningToWatch: [],
             watchedMovies: [],
             noFilteringIsMade: true,
-            runFilter: () => {}
+            runFilter: () => {},
+            allMoviesBtnIsClicked: true,
+            currentlyWatchingBtnIsClicked: false,
+            planningToWatchBtnIsClicked: false,
+            watchedMoviesBtnIsClicked: false
         }
     }
 
@@ -81,34 +85,50 @@ class MyMoviesList extends Component {
         return ( 
             <div className="moviesList-container">
                 <div className="moviesList-c1">
-                    <div className="moviesList-c1-filter-btn" onClick={() => {
+                    <div className={this.state.allMoviesBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} onClick={() => {
                             this.setState({
                                 noFilteringIsMade: true,
-                                runFilter: this.getAllMovies()
+                                runFilter: this.getAllMovies(),
+                                allMoviesBtnIsClicked: true,
+                                currentlyWatchingBtnIsClicked: false,
+                                planningToWatchBtnIsClicked: false,
+                                watchedMoviesBtnIsClicked: false
                             })
                         }}>
                         All Movies
                     </div>
-                    <div className="moviesList-c1-filter-btn" onClick={() => {
+                    <div className={this.state.currentlyWatchingBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} onClick={() => {
                             this.setState({
                                 noFilteringIsMade: false,
-                                runFilter: this.getCurrentlyWatching()
+                                runFilter: this.getCurrentlyWatching(),
+                                allMoviesBtnIsClicked: false,
+                                currentlyWatchingBtnIsClicked: true,
+                                planningToWatchBtnIsClicked: false,
+                                watchedMoviesBtnIsClicked: false
                             })
                         }}>
                         Watching
                     </div>
-                    <div className="moviesList-c1-filter-btn" onClick={() => {
+                    <div className={this.state.planningToWatchBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} onClick={() => {
                             this.setState({
                                 noFilteringIsMade: false,
-                                runFilter: this.getPlanningToWatch()
+                                runFilter: this.getPlanningToWatch(),
+                                allMoviesBtnIsClicked: false,
+                                currentlyWatchingBtnIsClicked: false,
+                                planningToWatchBtnIsClicked: true,
+                                watchedMoviesBtnIsClicked: false
                             })
                         }}>
                         Plan to Watch
                     </div>
-                    <div className="moviesList-c1-filter-btn" onClick={() => {
+                    <div className={this.state.watchedMoviesBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} onClick={() => {
                             this.setState({
                                 noFilteringIsMade: false,
-                                runFilter: this.getWathedMovies()
+                                runFilter: this.getWathedMovies(),
+                                allMoviesBtnIsClicked: false,
+                                currentlyWatchingBtnIsClicked: false,
+                                planningToWatchBtnIsClicked: false,
+                                watchedMoviesBtnIsClicked: true
                             })
                         }}>
                         Watched
