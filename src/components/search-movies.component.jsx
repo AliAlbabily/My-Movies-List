@@ -5,27 +5,14 @@ import '../App.css';
 
 import Movie from './movie.component'
 
-// Movie component inside ExercisesList file
-// const Movie = props => (
-//     <img src={} />
-// )
-
 class searchMovies extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeSearch = this.onChangeSearch.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
         this.state = { 
             movies: [],
-            search: ''
+            search: '',
         }
-    }
-
-    checkList() {
-        let arr = this.state.movies;
-        return arr.length === 0 ? <h2>Search for movies and Tv-shows:</h2> : this.moviesList();
     }
 
     moviesList() {
@@ -34,47 +21,62 @@ class searchMovies extends Component {
         })
     }
 
-    onChangeSearch(event) {
+    onChangeSearch = event => {
         this.setState({ 
             search: event.target.value.substr(0, 20) 
         });
     }
 
-    onSubmit(e) {
-        e.preventDefault();
+    onSubmit = event => {
+        event.preventDefault();
 
         // Send an http post-request to the following endpoint & bring back info
-        axios.post('http://www.omdbapi.com/?apikey=71470024&s='+this.state.search)
-            // .then(res => console.log(res.data))    
+        axios.post('http://www.omdbapi.com/?apikey=71470024&s='+this.state.search)   
             .then(res => {
-                this.setState({ 
-                    movies: res.data.Search
-                })
+                console.log(res.data)
+                // 
+                if(res.data.Search.length) {
+                    this.setState({ 
+                        movies: res.data.Search
+                    })
+                } else {
+                    this.setState({ 
+                        defaultMess: "No Results Found"
+                    })
+                }
+            })
+            .catch(function(error){
+                console.log(error);
             });
 
-        // clean input-text-field for a new search
         this.setState({ 
-            search: ''
+            // clean input-text-field for a new search
+            search: '',
+            // clear list for new results 
+            movies: []
         });
     }
 
     render() { 
         return ( 
             <div>
-                <form onSubmit={this.onSubmit}>
-                    <div> 
-                        <label>Enter a movie name: </label>
-                        <input  type="text"
-                            required
-                            value={this.state.search}
-                            onChange={this.onChangeSearch}
+                <div className="movies-search-section">
+                    <form onSubmit={this.onSubmit}>
+                        <div> 
+                            <label>Enter a movie name: </label>
+                            <input type="text"
+                                required
+                                value={this.state.search}
+                                onChange={this.onChangeSearch}
                             />
-                    </div>
-                    <input type="submit" value="Search" />
-                </form>
-
+                        </div>
+                        <div>
+                            <input type="submit" value="Search" />
+                        </div>
+                    </form>
+                </div>
                 <div className="movies-container">
-                    {this.checkList()}
+                    {!this.state.movies.length ? <h2 className="search-title">Search For Movies</h2> : this.moviesList()}
                 </div>
             </div> 
         );

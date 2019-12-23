@@ -38,10 +38,79 @@ a:hover {
   transition: 0.3s;
 }
 
+/* search-movies.component */
+
+.movies-search-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.movies-search-section label {
+  font-weight: 600;
+  font-family: 'Oswald', sans-serif;
+  margin-right: 5px;
+}
+
+.movies-search-section form div:nth-child(2) {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.movies-search-section form div:nth-child(2) input {
+  border: none;
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  margin: 0px 3px;
+  box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.movies-search-section form div:nth-child(2) input:hover {
+  background-color: #343434;
+}
+
+.movies-container {
+  background-color: transparent;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 100%;
+  min-height: 300px;
+  max-height: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 7px;
+}
+
+.movies-container > a {
+  margin: unset;
+  padding: 4px;
+  width: 260px;
+  height: 380px;
+}
+
+.search-title {
+  font-family: 'Teko', sans-serif;
+  font-style: normal;
+  font-size: 2.5em;
+  margin: unset; 
+}
+
 .movie-poster {
   width: 260px;
   height: 380px;
-  margin: 5px;
   border: 1px Solid Black;
 }
 
@@ -50,15 +119,7 @@ a:hover {
   transition: 0.3s;
 }
 
-.movies-container {
-  background-color: grey;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  min-height: 500px;
-  max-height: max-content;
-}
+/* movie-information.component */
 
 .movie-poster-mini {
   width: 100%;
