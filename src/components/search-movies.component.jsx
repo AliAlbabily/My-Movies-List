@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import { Waypoint } from 'react-waypoint';
 import axios from 'axios';
 import '../App.css';
 
