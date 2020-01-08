@@ -6,18 +6,18 @@ import '../App.css';
 
 import Movie from './movie.component'
 
-class searchMovies extends Component {
+class searchSeries extends Component {
     constructor(props) {
         super(props);
 
         this.state = { 
-            movies: [],
+            series: [],
             search: '',
         }
     }
 
-    moviesList() {
-        return this.state.movies.map(currentObj => {
+    seriesList() {
+        return this.state.series.map(currentObj => {
             return <Movie movieObj={currentObj} key={currentObj.imdbID} />;
         })
     }
@@ -32,13 +32,13 @@ class searchMovies extends Component {
         event.preventDefault();
 
         // Send an http post-request to the following endpoint & bring back info
-        axios.post('http://www.omdbapi.com/?apikey=71470024&s='+this.state.search+'&type=movie')   
+        axios.post('http://www.omdbapi.com/?apikey=71470024&s='+this.state.search+'&type=series')   
             .then(res => {
                 console.log(res.data)
                 // 
                 if(res.data.Search.length) {
                     this.setState({ 
-                        movies: res.data.Search
+                        series: res.data.Search
                     })
                 } else {
                     this.setState({ 
@@ -54,7 +54,7 @@ class searchMovies extends Component {
             // clean input-text-field for a new search
             search: '',
             // clear list for new results 
-            movies: []
+            series: []
         });
     }
 
@@ -64,7 +64,7 @@ class searchMovies extends Component {
                 <div className="movies-search-section">
                     <form onSubmit={this.onSubmit}>
                         <div> 
-                            <label>Enter a movie name: </label>
+                            <label>Enter a Series name: </label>
                             <input type="text"
                                 required
                                 value={this.state.search}
@@ -77,11 +77,11 @@ class searchMovies extends Component {
                     </form>
                 </div>
                 <div className="movies-container">
-                    {!this.state.movies.length ? <h2 className="search-title">Search For Movies</h2> : this.moviesList()}
+                    {!this.state.series.length ? <h2 className="search-title">Search For Series</h2> : this.seriesList()}
                 </div>
             </div> 
         );
     }
 }
 
-export default searchMovies;
+export default searchSeries;

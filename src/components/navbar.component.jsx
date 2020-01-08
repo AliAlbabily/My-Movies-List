@@ -9,8 +9,9 @@ class Navbar extends Component {
             <div className="nav-style">
                 <div className="navbar-first-column">
                     <Link to="/" className="li-style">Home</Link>
-                    <Link to="/searchmovies" className="li-style">Search for movies</Link>
-                    <Link to="/mymovieslist" className="li-style">My list of Movies</Link>
+                    <Link to="/searchmovies" className="li-style">Search for Movies</Link>
+                    <Link to="/searchseries" className="li-style">Search for Series</Link>
+                    <Link to="/mymovieslist" className="li-style">My list</Link>
                 </div>
                 <div className="navbar-second-column">
                     <Link to="/login" className="li-style">Log in</Link>
