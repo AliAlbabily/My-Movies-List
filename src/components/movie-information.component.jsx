@@ -11,6 +11,7 @@ class MovieInformation extends Component {
             moviePoster: '', 
             movieTitle: '',
             movieGenre: '',
+            movieType: '',
             movieRuntime: '',
             moviePlot: '',
             movieID: '',
@@ -28,6 +29,7 @@ class MovieInformation extends Component {
                     moviePoster: response.data.Poster, 
                     movieTitle: response.data.Title,
                     movieGenre: response.data.Genre,
+                    movieType: response.data.Type,
                     movieRuntime: response.data.Runtime,
                     moviePlot: response.data.Plot,
                     movieID: response.data.imdbID
@@ -70,6 +72,7 @@ class MovieInformation extends Component {
             poster: this.state.moviePoster,
             title: this.state.movieTitle,
             genre: this.state.movieGenre,
+            type: this.state.movieType,
             runtime: this.state.movieRuntime,
             plot: this.state.moviePlot,
             imdbid: this.state.movieID,

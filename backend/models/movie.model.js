@@ -5,6 +5,7 @@ const movieSchema = new Schema({
     poster: { type: String, required: true },
     title: { type: String, required: true },
     genre: { type: String, required: true },
+    type: { type: String, required: true },
     runtime: { type: String, required: true },
     plot: { type: String, required: true },
     imdbid: { type: String, required: true },

@@ -14,6 +14,7 @@ router.route('/add').post((req, res) => {
     const poster = req.body.poster;
     const title = req.body.title;
     const genre = req.body.genre;
+    const type = req.body.type;
     const runtime = req.body.runtime;
     const plot = req.body.plot;
     const imdbid = req.body.imdbid;
@@ -23,6 +24,7 @@ router.route('/add').post((req, res) => {
         poster,
         title,
         genre,
+        type,
         runtime,
         plot,
         imdbid,
@@ -55,6 +57,7 @@ router.route('/update/:id').post((req, res) => {
             movie.poster = req.body.poster;
             movie.title = req.body.title;
             movie.genre = req.body.genre;
+            movie.type = req.body.type;
             movie.runtime = req.body.runtime;
             movie.plot = req.body.plot;
             movie.imdbid = req.body.imdbid;

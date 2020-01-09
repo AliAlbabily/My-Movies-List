@@ -142,6 +142,7 @@ class MyMoviesList extends Component {
                                 <th><i className="fas fa-images"></i> Image</th>
                                 <th>Title</th>
                                 <th>Genre</th>
+                                <th>Type</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>

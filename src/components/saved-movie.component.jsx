@@ -21,6 +21,7 @@ class SavedMovie extends Component {
                 </td>
                 <td>{this.props.movie.title}</td>
                 <td>{this.props.movie.genre}</td>
+                <td>{this.props.movie.type}</td>
                 <td>{this.props.movie.status}</td>
                 <td>
                     <i className="far fa-edit"></i> <Link to={"/edit-movie-inforamtion/"+this.props.movie._id} className="table-edit-btn">Edit</Link> | 
