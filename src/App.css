@@ -2,11 +2,26 @@
 /* Styles imports */
 @import url('https://fonts.googleapis.com/css?family=Oswald:300|Teko&display=swap');
 
+html,body, #root { 
+  height:100%; 
+}
+
+.start-page-component {
+  height: 100%;
+}
+
+/* navbar.component */
+
 .nav-style {
-  display: flex;
+  max-width: 1200px;
+  margin: 0px auto 0px auto;
+  font-family: 'Oswald', sans-serif;
   background-color: crimson;
-  width: 100%;
-  align-items: center; 
+  display: flex;
+  align-items: center;
+  -webkit-box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.75);
 }
 
 .navbar-first-column {
@@ -18,24 +33,80 @@
 
 .navbar-second-column {
   display: flex;
-  background-color: silver;
+  background-color: Black;
   width: 20%;
   justify-content: center;
+}
+
+.navbar-second-column:hover {
+  background-color: Grey;
 }
 
 .li-style {
   font-size: 20px;
   padding: 12px;
-}
-
-a {
   color: White;
   text-decoration: none;
 }
 
-a:hover {
-  color: rgb(36, 36, 36);
+.li-style:hover {
+  color: Black;
   transition: 0.3s;
+}
+
+/* home.component */
+
+.home-page-component {
+  height: 100%;
+}
+
+.home-div-wrapper {
+  margin: 0px auto 0px auto;
+  max-width: 1200px;
+  min-height: 650px;
+  height: 100%;
+  background-color: Grey;
+  background-image: url("./images/movies_background.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.75);
+  border-top: 1px Solid Black;
+}
+
+.home-div-container {
+  background-color: #0000008c;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-top: 1px Solid #ffffff70;
+  border-bottom: 1px Solid #ffffff70;
+}
+
+.home-div-container h1 {
+  margin: 0px;
+  max-width: 1000px;
+  color: White;
+  text-shadow: 2px 2px 4px #000000;
+  font-weight: 600;
+  font-size: 4.5em;
+  font-family: 'Oswald', sans-serif;
+}
+
+.home-div-container p {
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  color: White;
+  font-family: 'Oswald', sans-serif;
 }
 
 /* search-movies.component */
@@ -238,7 +309,7 @@ a:hover {
 
 .moviesList-container {
   max-width: 1200px;
-  margin: 25px auto 25px auto;
+  margin: 10px auto 25px auto;
   position: relative;
   display: flex;
   justify-content: center;
@@ -330,6 +401,7 @@ a:hover {
 .table-remove-btn {
   font-weight: bold;
   color: Black;
+  text-decoration: none;
 }
 
 .table-remove-btn:hover {
@@ -340,6 +412,7 @@ a:hover {
 .table-edit-btn {
   font-weight: bold;
   color: Black;
+  text-decoration: none;
 }
 
 .table-edit-btn:hover {

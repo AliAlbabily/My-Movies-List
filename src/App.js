@@ -14,7 +14,7 @@ import EditMovieInformation from './components/edit-movie-information.component'
 function App() {
   return (
     <Router>
-      <div>
+      <div className="start-page-component">
         <Navbar />
         <Route path="/" component={Home} exact />
         <Route path="/searchmovies" component={SearchMovies} />

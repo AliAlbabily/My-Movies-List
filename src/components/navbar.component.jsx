@@ -14,7 +14,7 @@ class Navbar extends Component {
                     <Link to="/mymovieslist" className="li-style">My list</Link>
                 </div>
                 <div className="navbar-second-column">
-                    <Link to="/login" className="li-style">Log in</Link>
+                    <Link to="/login" className="li-style">Sign in with Google <i className="fas fa-sign-in-alt"></i></Link>
                 </div>
             </div>
         );
