@@ -54,6 +54,27 @@ html,body, #root {
   transition: 0.3s;
 }
 
+.winter {
+  background-image: url(./images/winter.gif);
+  background-position: center;
+  background-size: cover;
+}
+.summer {
+  background-image: url(./images/summer.gif);
+  background-position: center;
+  background-size: cover;
+}
+.autumn {
+  background-image: url(./images/autumn.gif);
+  background-position: center;
+  background-size: cover;
+}
+.spring {
+  background-image: url(./images/spring.gif);
+  background-position: center;
+  background-size: cover;
+}
+
 /* home.component */
 
 .home-page-component {
