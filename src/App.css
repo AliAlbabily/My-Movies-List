@@ -6,7 +6,7 @@ html,body, #root {
   height:100%; 
 }
 
-.start-page-component {
+.start-point-component {
   height: 100%;
 }
 
@@ -33,7 +33,7 @@ html,body, #root {
 
 .navbar-second-column {
   display: flex;
-  background-color: Black;
+  background-color: Grey;
   width: 20%;
   justify-content: center;
 }
@@ -45,12 +45,12 @@ html,body, #root {
 .li-style {
   font-size: 20px;
   padding: 12px;
-  color: White;
+  color: Black;
   text-decoration: none;
 }
 
 .li-style:hover {
-  color: Black;
+  color: White;
   transition: 0.3s;
 }
 
@@ -439,4 +439,26 @@ html,body, #root {
 .table-edit-btn:hover {
   font-weight: bold;
   color: darkgreen;
+}
+
+/* login.component */
+
+.login-wrapper {
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.25);
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.25);
+  height: fit-content;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

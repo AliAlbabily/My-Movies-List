@@ -25,5 +25,7 @@ connection.once('open', () => {
 
 // ***   Make the app accept Endpoints through routes   ***/
 const moviesRouter = require('./routes/movies');
+const usersRouter = require('./routes/users');
 
 app.use('/movies', moviesRouter);
+app.use('/users', usersRouter);

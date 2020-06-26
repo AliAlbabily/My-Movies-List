@@ -10,11 +10,12 @@ import SearchSeries from './components/search-series.component';
 import MyMoviesList from './components/my-movies-list.component';
 import MovieInformation from './components/movie-information.component';
 import EditMovieInformation from './components/edit-movie-information.component';
+import LoginComponent from './components/login.component';
 
 function App() {
   return (
     <Router>
-      <div className="start-page-component">
+      <div className="start-point-component">
         <Navbar />
         <Route path="/" component={Home} exact />
         <Route path="/searchmovies" component={SearchMovies} />
@@ -22,6 +23,7 @@ function App() {
         <Route path="/mymovieslist" component={MyMoviesList} />
         <Route path="/movies/:id" component={MovieInformation} />
         <Route path="/edit-movie-inforamtion/:id" component={EditMovieInformation} />
+        <Route path="/login" component={LoginComponent} />
       </div>
     </Router>
   );
