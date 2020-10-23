@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 
 import Navbar from './components/navbar.component';
-import Home from './components/home.component';
+import Home from './components/home-div.component';
 import SearchMovies from './components/search-movies.component';
 import SearchSeries from './components/search-series.component';
 import MyMoviesList from './components/my-movies-list.component';

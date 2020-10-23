@@ -37,15 +37,15 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div className="nav-style">
-                <div className={"navbar-first-column " + this.getSeasonalBackgrounds()}>
-                    <Link to="/" className="li-style">Home</Link>
-                    <Link to="/searchmovies" className="li-style">Search for Movies</Link>
-                    <Link to="/searchseries" className="li-style">Search for Series</Link>
-                    <Link to="/mymovieslist" className="li-style">My list</Link>
-                </div>
+            <div className={"nav-style row " + this.getSeasonalBackgrounds()}>
+                <ul className="navbar-first-column">
+                    <li><Link to="/" className="link-style">Home</Link></li>
+                    <li><Link to="/searchmovies" className="link-style">Search for Movies</Link></li>
+                    <li><Link to="/searchseries" className="link-style">Search for Series</Link></li>
+                    <li><Link to="/mymovieslist" className="link-style">My list</Link></li>
+                </ul>
                 <div className="navbar-second-column">
-                    <Link to="/login" className="li-style">Sign in with Google <i className="fas fa-sign-in-alt"></i></Link>
+                    <Link to="/login" className="link-style">Sign in with Google <i className="fas fa-sign-in-alt"></i></Link>
                 </div>
             </div>
         );
