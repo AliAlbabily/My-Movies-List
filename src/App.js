@@ -3,10 +3,10 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 
-import Navbar from './components/navbar.component';
-import Home from './components/home-div.component';
-import SearchMovies from './components/search-movies.component';
-import SearchSeries from './components/search-series.component';
+import Navbar from './components/navbar';
+import Home from './components/home-container';
+import SearchMovies from './components/searched-movies-container';
+import SearchSeries from './components/searched-series-container';
 import MyMoviesList from './components/my-movies-list.component';
 import MovieInformation from './components/movie-information.component';
 import EditMovieInformation from './components/edit-movie-information.component';

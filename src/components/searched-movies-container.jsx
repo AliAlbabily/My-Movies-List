@@ -1,28 +1,27 @@
 
 import React, { Component } from 'react';
-// import { Waypoint } from 'react-waypoint';
 import axios from 'axios';
 import '../App.css';
 
-import Movie from './movie.component'
+import Movie from './movie'
 
-class searchSeries extends Component {
+class searchMovies extends Component {
     constructor(props) {
         super(props);
 
         this.state = { 
-            series: [],
+            movies: [],
             search: '',
         }
     }
 
-    seriesList() {
-        return this.state.series.map(currentObj => {
+    moviesList() {
+        return this.state.movies.map(currentObj => {
             return <Movie movieObj={currentObj} key={currentObj.imdbID} />;
         })
     }
 
-    onChangeSearch = event => {
+    inputSearch = event => {
         this.setState({ 
             search: event.target.value.substr(0, 20) 
         });
@@ -32,13 +31,13 @@ class searchSeries extends Component {
         event.preventDefault();
 
         // Send an http post-request to the following endpoint & bring back info
-        axios.post('http://www.omdbapi.com/?apikey=71470024&s='+this.state.search+'&type=series')   
+        axios.post('http://www.omdbapi.com/?apikey=71470024&s='+this.state.search+'&type=movie')   
             .then(res => {
                 console.log(res.data)
                 // 
                 if(res.data.Search.length) {
                     this.setState({ 
-                        series: res.data.Search
+                        movies: res.data.Search
                     })
                 } else {
                     this.setState({ 
@@ -54,21 +53,21 @@ class searchSeries extends Component {
             // clean input-text-field for a new search
             search: '',
             // clear list for new results 
-            series: []
+            movies: []
         });
     }
 
     render() { 
         return ( 
-            <div>
+            <div className="row">
                 <div className="movies-search-section">
                     <form onSubmit={this.onSubmit}>
                         <div> 
-                            <label>Enter a Series name: </label>
+                            <label>Enter a movie name: </label>
                             <input type="text"
                                 required
                                 value={this.state.search}
-                                onChange={this.onChangeSearch}
+                                onChange={this.inputSearch}
                             />
                         </div>
                         <div>
@@ -77,11 +76,11 @@ class searchSeries extends Component {
                     </form>
                 </div>
                 <div className="movies-container">
-                    {!this.state.series.length ? <h2 className="search-title">Search For Series</h2> : this.seriesList()}
+                    {!this.state.movies.length ? <h2 className="container-empty-heading">Search For Movies</h2> : this.moviesList()}
                 </div>
             </div> 
         );
     }
 }
 
-export default searchSeries;
+export default searchMovies;

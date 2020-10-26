@@ -3,10 +3,11 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald:300|Teko&display=swap');
 
 /* ------------------------------------------------ */
-/* Colors and text shadow */
+/* Colors & shadows */
 /* ------------------------------------------------ */
 
 /* text-shadow: 2px 2px 5px black; */
+/* box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75); */
 
 /* ------------------------------------------------ */
 /* Basic setup */
@@ -139,12 +140,11 @@
 }
 
 /* ------------------------------------------------ */
-/* search-movies.component */
+/* searched-movies-container.component */
 /* ------------------------------------------------ */
 
 .movies-search-section {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -182,43 +182,40 @@
 }
 
 .movies-container {
-  background-color: transparent;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  width: 100%;
-  min-height: 300px;
+  min-height: 30vh;
   max-height: max-content;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   padding-top: 5px;
-  padding-bottom: 7px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap; /* to keep the shown items within the container */
+  justify-content: center;
+  margin-bottom: 10vh;
 }
 
-.movies-container > a {
-  margin: unset;
-  padding: 4px;
-  width: 260px;
-  height: 380px;
-}
-
-.search-title {
+.container-empty-heading {
   font-family: 'Teko', sans-serif;
   font-style: normal;
   font-size: 2.5em;
-  margin: unset; 
+  line-height: 30vh;
 }
 
-.movie-poster {
+.container-movie-item {
   width: 260px;
   height: 380px;
-  border: 1px Solid Black;
+  padding: 5px;
 }
 
-.movie-poster:hover {
-  border: 1px Solid White;
-  transition: 0.3s;
+.container-movie-item img {
+  width: 100%;
+  height: 100%;
+  box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75);
+}
+
+.container-movie-item img:hover {
+  transform: scale(1.03);
+  transition: transform 0.5s;
 }
 
 /* ------------------------------------------------ */
