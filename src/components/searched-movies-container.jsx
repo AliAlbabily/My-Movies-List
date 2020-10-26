@@ -50,8 +50,6 @@ class searchMovies extends Component {
             });
 
         this.setState({ 
-            // clean input-text-field for a new search
-            search: '',
             // clear list for new results 
             movies: []
         });
@@ -60,19 +58,15 @@ class searchMovies extends Component {
     render() { 
         return ( 
             <div className="row">
-                <div className="movies-search-section">
+                <div className="search-movies-container">
                     <form onSubmit={this.onSubmit}>
-                        <div> 
-                            <label>Enter a movie name: </label>
-                            <input type="text"
-                                required
-                                value={this.state.search}
-                                onChange={this.inputSearch}
-                            />
-                        </div>
-                        <div>
-                            <input type="submit" value="Search" />
-                        </div>
+                        <input type="text"
+                            required
+                            placeholder="Enter a movie name"
+                            value={this.state.search}
+                            onChange={this.inputSearch}
+                        />
+                        <input type="submit" value="Search" className="stylish-btn"/>
                     </form>
                 </div>
                 <div className="movies-container">

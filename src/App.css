@@ -28,15 +28,25 @@
   margin: 0 auto; /* Top & Bottom will be 0, and Right & Left will be auto */
 }
 
+.stylish-btn {
+  color: white;
+  background-color: black;
+  border: none;
+  text-align: center;
+  box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
+  border-radius: 5px;
+  font-family: 'Oswald', sans-serif;
+}
+
 /* ------------------------------------------------ */
 /* navbar.component */
 /* ------------------------------------------------ */
 
 .nav-style {
   display: flex;
+  align-items: center;
   padding-left: 10px;
   height: 10vh;
-  line-height: 10vh;
   font-family: 'Oswald', sans-serif;
   -webkit-box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.75);
@@ -143,42 +153,31 @@
 /* searched-movies-container.component */
 /* ------------------------------------------------ */
 
-.movies-search-section {
-  display: flex;
-  justify-content: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+.search-movies-container {
+  padding: 20px;
 }
 
-.movies-search-section label {
-  font-weight: 600;
-  font-family: 'Oswald', sans-serif;
+.search-movies-container form {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-movies-container form input:nth-child(1) {
+  width: 15vw;
+  height: 100%;
+  font-size: 16px;
   margin-right: 5px;
 }
 
-.movies-search-section form div:nth-child(2) {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
+.search-movies-container form input:nth-child(2) {
+  width: 10vw;
+  height: 100%;
+  font-size: 20px;
 }
 
-.movies-search-section form div:nth-child(2) input {
-  border: none;
-  background-color: #000000;
-  color: white;
-  text-align: center;
-  width: 80px;
-  height: 30px;
-  line-height: 30px;
-  font-size: 16px;
-  margin: 0px 3px;
-  box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
-  border-radius: 8px;
-  font-family: 'Oswald', sans-serif;
-}
-
-.movies-search-section form div:nth-child(2) input:hover {
-  background-color: #343434;
+.search-movies-container form input:nth-child(2):hover {
+  background-color: #747474;
 }
 
 .movies-container {
@@ -201,19 +200,19 @@
   line-height: 30vh;
 }
 
-.container-movie-item {
+.container-movie-link {
   width: 260px;
   height: 380px;
-  padding: 5px;
+  margin: 5px;
 }
 
-.container-movie-item img {
+.container-movie-link img {
   width: 100%;
   height: 100%;
   box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75);
 }
 
-.container-movie-item img:hover {
+.container-movie-link img:hover {
   transform: scale(1.03);
   transition: transform 0.5s;
 }
