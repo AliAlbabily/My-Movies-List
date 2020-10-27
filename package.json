@@ -15,7 +15,6 @@
     "react-google-login": "^5.0.7",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "react-waypoint": "^9.0.2",
     "save": "^2.4.0"
   },
   "scripts": {
