@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 import '../App.css';
 
 class Movie extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return ( 

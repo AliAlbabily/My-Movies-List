@@ -6,6 +6,7 @@
 /* Colors & shadows */
 /* ------------------------------------------------ */
 
+/* #747474 (on hover) */
 /* text-shadow: 2px 2px 5px black; */
 /* box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75); */
 
@@ -190,7 +191,6 @@
   display: flex;
   flex-wrap: wrap; /* to keep the shown items within the container */
   justify-content: center;
-  margin-bottom: 10vh;
 }
 
 .container-empty-heading {
@@ -215,6 +215,23 @@
 .container-movie-link img:hover {
   transform: scale(1.03);
   transition: transform 0.5s;
+}
+
+.more-results-btn-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.more-results-btn-container div {
+  width: 250px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.more-results-btn-container div:hover {
+  background-color: #747474;
 }
 
 /* ------------------------------------------------ */
