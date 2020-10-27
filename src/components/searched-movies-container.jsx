@@ -51,7 +51,7 @@ class searchMovies extends Component {
 
         this.setState({ 
             movies: [], // clear list for new results 
-            currentPage: 1 // reset the page number back to 1
+            currentPage: 1 // reset page number back to 1
         });
     }
 
@@ -59,10 +59,9 @@ class searchMovies extends Component {
         axios.post(`http://www.omdbapi.com/?apikey=71470024&s=${this.state.search}&type=movie&page=${this.state.currentPage+1}`)
             .then(res => {
                 console.log(res.data.Search)
-                // loop through the array
-                res.data.Search.map(object => {
+                res.data.Search.map(object => { // loop through the array
                     this.setState({
-                        movies: [...this.state.movies, object]
+                        movies: [...this.state.movies, object] // push each new object into movies-list inside the state
                     })
                 })
             })
@@ -71,7 +70,7 @@ class searchMovies extends Component {
             });
 
         this.setState({ 
-            currentPage: this.state.currentPage+1
+            currentPage: this.state.currentPage+1 // increment page number by 1
         });
     }
 
