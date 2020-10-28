@@ -92,7 +92,9 @@ class searchMovies extends Component {
                     {!this.state.movies.length ? <h2 className="container-empty-heading">Search For Movies</h2> : this.moviesList()}
                 </div>
                 <div className="more-results-btn-container">
-                    <div onClick={this.getMoreData} className="stylish-btn">Load more results ..</div>
+                    {/* conditional rendering with short-circuit operator approach. 
+                    Using double ! to get rid of 0 when the component is rendered */}
+                    {!!this.state.movies.length && <div onClick={this.getMoreData} className="stylish-btn">Load more results ..</div>}
                 </div>
             </div> 
         );
