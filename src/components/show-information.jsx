@@ -17,7 +17,6 @@ class MovieInformation extends Component {
             movieID: '',
             selectedValue: 'Watching',
             postMessage: '',
-            // TODO: not a likeable solution
             postMessClasses: ''
         }
     }
@@ -40,20 +39,19 @@ class MovieInformation extends Component {
             })
     }
 
-    postNewItem(movieObj) {
+    saveItemToDB(movieObj) {
         axios.post('http://localhost:5000/movies/add', movieObj)
             .then(res => {
                 this.setState({
                     postMessage: "The movie was successfully added to your list!",
-                    postMessClasses: " successfull-mess"
+                    postMessClasses: "successfull-mess"
                 });
                 console.log(res.data);
             })
-            // TODO: Not sure if this is a good way of returning an error
             .catch(error => {
                 this.setState({
                     postMessage: "Something went wrong!",
-                    postMessClasses: " unsuccessfull-mess"
+                    postMessClasses: "unsuccessfull-mess"
                 })
                 console.log(error);
             });
@@ -93,41 +91,41 @@ class MovieInformation extends Component {
                 } 
                 else {
                     // Send http post-request to the following endpoint
-                    this.postNewItem(movie);
+                    this.saveItemToDB(movie);
                 }
             })
     }
 
     render() {
         return (
-            <div className="movie-content-container">
-                <div className="movie-content-container-c1">
+            <div className="show-information-container row">
+                <div>
                     <img src={this.state.moviePoster} className="movie-poster-mini" alt="" />
                 </div>
-                <div className="movie-content-container-c2">
-                    <div className="movie-content-container-c2-r1"> 
-                        <p className="movie-title">{this.state.movieTitle}</p>
-                        <p className="movie-genre">{this.state.movieGenre}</p>
-                        <p className="movie-runtime">{this.state.movieRuntime}</p>
-                        <p className="movie-plot">{this.state.moviePlot}</p>
+                <div>
+                    <div className="show-info-col2-row1">
+                        <p className="show-title">{this.state.movieTitle}</p>
+                        <p className="show-plot">{this.state.moviePlot}</p>
+                        <p className="show-genre">{this.state.movieGenre}</p>
+                        <p className="show-runtime">{this.state.movieRuntime}</p>
                     </div>
-                    <div className="movie-content-container-c2-r2">
+                    <div className="show-info-col2-row2">
                         <form onSubmit={this.handleSubmit}>
-                            <div className="movie-form-c1">
-                                <label className="movie-form-label">Add to my list: </label>
+                            <div className="show-form-col1">
+                                <label className="show-form-label">Add to my list:</label>
                                 <select value={this.state.selectedValue} onChange={this.handleSelectChange} required>
                                     <option>Watching</option>
                                     <option>Watch later</option>
                                     <option>Watched</option>   
                                 </select>
                             </div>
-                            <div className="movie-form-c2">
-                                <button type="submit" className="movie-form-btn">Save option</button>
+                            <div className="show-form-col2">
+                                <button type="submit" className="show-form-btn stylish-btn">Save option</button>
                             </div>
                         </form>
                     </div>
-                    <div className="movie-content-container-c2-r3">
-                        <p className={"post-mess-returned" + this.state.postMessClasses}>{this.state.postMessage}</p>
+                    <div className="show-content-col2-row3">
+                        <p className={"post-mess-returned " + this.state.postMessClasses}>{this.state.postMessage}</p>
                     </div>
                 </div>
             </div>

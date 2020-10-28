@@ -40,7 +40,7 @@
 }
 
 /* ------------------------------------------------ */
-/* navbar.component */
+/* navbar component */
 /* ------------------------------------------------ */
 
 .nav-style {
@@ -104,7 +104,7 @@
 }
 
 /* ------------------------------------------------ */
-/* home.component */
+/* home component */
 /* ------------------------------------------------ */
 
 .home-div-wrapper {
@@ -151,7 +151,7 @@
 }
 
 /* ------------------------------------------------ */
-/* searched-movies-container.component */
+/* searched-movies-container component */
 /* ------------------------------------------------ */
 
 .search-movies-container {
@@ -235,22 +235,31 @@
 }
 
 /* ------------------------------------------------ */
-/* movie-information.component */
+/* show-information component */
 /* ------------------------------------------------ */
 
-.movie-poster-mini {
-  width: 100%;
-  box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.5);
+.show-information-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-top: 10vh;
+  padding: 20px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
-.movie-title {
+.movie-poster-mini {
+  width: 90%;
+  box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75);
+}
+
+.show-title {
   font-family: 'Teko', sans-serif;
   font-style: normal;
   font-size: 3em;
-  margin: unset;
 }
 
-.movie-plot {
+.show-plot {
   font-family: 'Oswald', sans-serif;
   font-style: normal;
   font-size: 1em;
@@ -258,81 +267,50 @@
   max-width: 450px;
 }
 
-.movie-runtime {
+.show-genre {
   font-family: 'Oswald', sans-serif;
   font-style: normal;
   font-size: 1em;
-  margin: unset;
 }
 
-.movie-genre {
+.show-runtime {
   font-family: 'Oswald', sans-serif;
   font-style: normal;
   font-size: 1em;
-  margin: unset;
 }
 
-.movie-content-container {
-  background-color: transparent;
-  width: 100%;
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  margin-top: 80px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+.show-info-col2-row2 {
+  margin-top: 20px;
 }
 
-.movie-content-container-c1 {
-  background-color: transparent;
-}
-
-.movie-content-container-c2 {
-  background-color: transparent;
-  padding: 20px;
-  height: fit-content;
-}
-
-.movie-content-container-c2-r1 {
-  margin-bottom: 20px;
-}
-
-.movie-form-label {
-  font-family: 'Oswald', sans-serif;
-  margin-right: 10px;
-}
-
-.movie-form-btn {
-  background-color: #000000;
-  border: none;
-  color: white;
-  padding: 8px 18px;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.3);
-  border-radius: 11px;
-  font-family: 'Oswald', sans-serif;
-}
-
-.movie-form-btn:hover {
-  background-color: #343434;
-}
-
-.movie-form-c1 {
+.show-form-col1 {
   display: flex;
   justify-content: center;
 }
 
-.movie-form-c2 {
+.show-form-col2 {
   display: flex;
   justify-content: center;
   padding: 10px;
 }
 
-.movie-content-container-c2-r3 {
+.show-form-label {
+  font-family: 'Oswald', sans-serif;
+  margin-right: 10px;
+}
+
+.show-form-btn {
+  padding: 8px 18px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.show-form-btn:hover {
+  background-color: #343434;
+}
+
+.show-content-col2-row3 {
   display: flex;
   justify-content: center;
 }
@@ -352,7 +330,7 @@
 }
 
 /* ------------------------------------------------ */
-/* My list of Movies - container */
+/* my-movies-list component */
 /* ------------------------------------------------ */
 
 .moviesList-container {
@@ -394,9 +372,7 @@
   background-color: #aeaeae;
 }
 
-/* ------------------------------------------------ */
-/* Table */
-/* ------------------------------------------------ */
+/***** table *****/
 
 .content-table {
   font-family: 'Oswald', sans-serif;
@@ -468,7 +444,9 @@
   color: darkgreen;
 }
 
-/* login.component */
+/* ------------------------------------------------ */
+/* login component */
+/* ------------------------------------------------ */
 
 .login-wrapper {
   height: 90%;
