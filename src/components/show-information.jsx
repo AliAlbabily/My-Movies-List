@@ -24,6 +24,11 @@ class MovieInformation extends Component {
     componentDidMount() {
         axios.get('http://www.omdbapi.com/?apikey=71470024&i='+this.props.match.params.id)
             .then(response => {
+
+                console.log(response);
+
+                // TODO : remove unnecessary data in state and save the "response.data" object instead !!!
+
                 this.setState({
                     moviePoster: response.data.Poster, 
                     movieTitle: response.data.Title,
@@ -100,7 +105,7 @@ class MovieInformation extends Component {
         return (
             <div className="show-information-container row">
                 <div>
-                    <img src={this.state.moviePoster} className="movie-poster-mini" alt="" />
+                    <img src={this.state.moviePoster} className="show-poster" alt="" />
                 </div>
                 <div>
                     <div className="show-info-col2-row1">

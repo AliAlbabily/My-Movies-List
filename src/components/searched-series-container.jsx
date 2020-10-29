@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-import Movie from './movie'
+import Movie from './show-link'
 
 class searchSeries extends Component {
     constructor(props) {
