@@ -8,13 +8,7 @@ class MovieInformation extends Component {
         super(props);
 
         this.state = {
-            moviePoster: '', 
-            movieTitle: '',
-            movieGenre: '',
-            movieType: '',
-            movieRuntime: '',
-            moviePlot: '',
-            movieID: '',
+            showInfo: {},
             selectedValue: 'Watching',
             postMessage: '',
             postMessClasses: ''
@@ -24,19 +18,10 @@ class MovieInformation extends Component {
     componentDidMount() {
         axios.get('http://www.omdbapi.com/?apikey=71470024&i='+this.props.match.params.id)
             .then(response => {
-
                 console.log(response);
 
-                // TODO : remove unnecessary data in state and save the "response.data" object instead !!!
-
                 this.setState({
-                    moviePoster: response.data.Poster, 
-                    movieTitle: response.data.Title,
-                    movieGenre: response.data.Genre,
-                    movieType: response.data.Type,
-                    movieRuntime: response.data.Runtime,
-                    moviePlot: response.data.Plot,
-                    movieID: response.data.imdbID
+                    showInfo: response.data
                 })
             })
             .catch(function(error){
@@ -72,13 +57,13 @@ class MovieInformation extends Component {
         event.preventDefault();
 
         const movie = {
-            poster: this.state.moviePoster,
-            title: this.state.movieTitle,
-            genre: this.state.movieGenre,
-            type: this.state.movieType,
-            runtime: this.state.movieRuntime,
-            plot: this.state.moviePlot,
-            imdbid: this.state.movieID,
+            poster: this.state.showInfo.Poster,
+            title: this.state.showInfo.Title,
+            genre: this.state.showInfo.Genre,
+            type: this.state.showInfo.Type,
+            runtime: this.state.showInfo.Runtime,
+            plot: this.state.showInfo.Plot,
+            imdbid: this.state.showInfo.imdbID,
             status: this.state.selectedValue 
         }
 
@@ -105,14 +90,14 @@ class MovieInformation extends Component {
         return (
             <div className="show-information-container row">
                 <div>
-                    <img src={this.state.moviePoster} className="show-poster" alt="" />
+                    <img src={this.state.showInfo.Poster} className="show-poster" alt="" />
                 </div>
                 <div>
                     <div className="show-info-col2-row1">
-                        <p className="show-title">{this.state.movieTitle}</p>
-                        <p className="show-plot">{this.state.moviePlot}</p>
-                        <p className="show-genre">{this.state.movieGenre}</p>
-                        <p className="show-runtime">{this.state.movieRuntime}</p>
+                        <p className="show-title">{this.state.showInfo.Title}</p>
+                        <p className="show-plot">{this.state.showInfo.Plot}</p>
+                        <p className="show-genre">{this.state.showInfo.Genre}</p>
+                        <p className="show-runtime">{this.state.showInfo.Runtime}</p>
                     </div>
                     <div className="show-info-col2-row2">
                         <form onSubmit={this.handleSubmit}>
