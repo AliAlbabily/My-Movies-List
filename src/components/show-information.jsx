@@ -12,7 +12,7 @@ class MovieInformation extends Component {
             selectedValue: 'Watching',
             postMessage: '',
             postMessClasses: '',
-            showAlreadyExists: false
+            showIsAdded: false
         }
     }
 
@@ -42,7 +42,7 @@ class MovieInformation extends Component {
                     this.setState({
                         postMessage: 'This show exists in your list',
                         postMessClasses: '',
-                        showAlreadyExists: true
+                        showIsAdded: true
                     })
                 }
             })
@@ -86,18 +86,18 @@ class MovieInformation extends Component {
             status: this.state.selectedValue 
         }
 
-        if(this.state.showAlreadyExists) {
+        if(this.state.showIsAdded) {
             this.setState({
                 postMessage: 'You have already added this show to your list.',
                 postMessClasses: 'unsuccessfull-mess'
             })
         } 
         else {
-            this.saveItemToDB(movie);
+            this.saveItemToDB(movie)
 
             // to prevent adding the same show more than one time
             this.setState({
-                showAlreadyExists: true
+                showIsAdded: true
             })
         }
     }
