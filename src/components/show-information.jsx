@@ -11,21 +11,40 @@ class MovieInformation extends Component {
             showInfo: {},
             selectedValue: 'Watching',
             postMessage: '',
-            postMessClasses: ''
+            postMessClasses: '',
+            showAlreadyExists: false
         }
     }
 
     componentDidMount() {
         axios.get('http://www.omdbapi.com/?apikey=71470024&i='+this.props.match.params.id)
             .then(response => {
-                console.log(response);
+                console.log(response)
 
                 this.setState({
                     showInfo: response.data
                 })
+
+                this.checkIfShowExistsInDB()
             })
-            .catch(function(error){
+            .catch(function(error) {
                 console.log(error);
+            })
+    }
+
+    checkIfShowExistsInDB() {
+        // loop through all the shows in the database to check and compare each imdbID with the new one
+        axios.get('http://localhost:5000/movies/')
+            .then(response => {
+                const showsArrayOfIDs = response.data.map(showDBObj => showDBObj.imdbid)
+
+                if(showsArrayOfIDs.includes(this.state.showInfo.imdbID)) {
+                    this.setState({
+                        postMessage: 'This show exists in your list',
+                        postMessClasses: '',
+                        showAlreadyExists: true
+                    })
+                }
             })
     }
 
@@ -67,23 +86,20 @@ class MovieInformation extends Component {
             status: this.state.selectedValue 
         }
 
-        console.log(movie);
-
-        // loop through all the imdbIDs in the database and compare them to the new imdbID
-        axios.get('http://localhost:5000/movies/')
-            .then(response => {
-                let movieArr = response.data.map(movieDbObj => movieDbObj.imdbid);
-                if(movieArr.includes(movie.imdbid)) {
-                    this.setState({
-                        postMessage: 'This movie already exists in your list!',
-                        postMessClasses: ''
-                    })
-                } 
-                else {
-                    // Send http post-request to the following endpoint
-                    this.saveItemToDB(movie);
-                }
+        if(this.state.showAlreadyExists) {
+            this.setState({
+                postMessage: 'You have already added this show to your list.',
+                postMessClasses: 'unsuccessfull-mess'
             })
+        } 
+        else {
+            this.saveItemToDB(movie);
+
+            // to prevent adding the same show more than one time
+            this.setState({
+                showAlreadyExists: true
+            })
+        }
     }
 
     render() {
