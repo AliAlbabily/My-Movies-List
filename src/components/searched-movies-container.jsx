@@ -77,7 +77,7 @@ class searchMovies extends Component {
     render() { 
         return ( 
             <div className="row">
-                <div className="search-movies-container">
+                <div className="search-shows-container">
                     <form onSubmit={this.onSubmit}>
                         <input type="text"
                             required
@@ -88,7 +88,7 @@ class searchMovies extends Component {
                         <input type="submit" value="Search" className="stylish-btn"/>
                     </form>
                 </div>
-                <div className="movies-container">
+                <div className="shows-container">
                     {!this.state.movies.length ? <h2 className="container-empty-heading">Search For Movies</h2> : this.moviesList()}
                 </div>
                 <div className="more-results-btn-container">

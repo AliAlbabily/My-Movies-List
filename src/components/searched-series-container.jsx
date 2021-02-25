@@ -21,7 +21,7 @@ class searchSeries extends Component {
         })
     }
 
-    onChangeSearch = event => {
+    inputSearch = event => {
         this.setState({ 
             search: event.target.value.substr(0, 20) 
         });
@@ -59,24 +59,20 @@ class searchSeries extends Component {
 
     render() { 
         return ( 
-            <div>
-                <div className="movies-search-section">
+            <div className="row">
+                <div className="search-shows-container">
                     <form onSubmit={this.onSubmit}>
-                        <div> 
-                            <label>Enter a Series name: </label>
-                            <input type="text"
-                                required
-                                value={this.state.search}
-                                onChange={this.onChangeSearch}
-                            />
-                        </div>
-                        <div>
-                            <input type="submit" value="Search" />
-                        </div>
+                        <input type="text"
+                            required
+                            placeholder="Enter a series name"
+                            value={this.state.search}
+                            onChange={this.inputSearch}
+                        />
+                        <input type="submit" value="Search" className="stylish-btn"/>
                     </form>
                 </div>
-                <div className="movies-container">
-                    {!this.state.series.length ? <h2 className="search-title">Search For Series</h2> : this.seriesList()}
+                <div className="shows-container">
+                    {!this.state.series.length ? <h2 className="container-empty-heading">Search For Series</h2> : this.seriesList()}
                 </div>
             </div> 
         );

@@ -8,13 +8,7 @@ class EditMovieInformation extends Component {
         super(props);
 
         this.state = {
-            moviePoster: '', 
-            movieTitle: '',
-            movieGenre: '',
-            movieType: '',
-            movieRuntime: '',
-            moviePlot: '',
-            movieID: '',
+            showInfo: {},
             selectedValue: '',
             postMessage: '',
             // TODO: not a likeable solution
@@ -25,14 +19,10 @@ class EditMovieInformation extends Component {
     componentDidMount() {
         axios.get('http://localhost:5000/movies/'+this.props.match.params.id) 
             .then(response => {
+                console.log(response)
+
                 this.setState({
-                    moviePoster: response.data.poster, 
-                    movieTitle: response.data.title,
-                    movieGenre: response.data.genre,
-                    movieType: response.data.type,
-                    movieRuntime: response.data.runtime,
-                    moviePlot: response.data.plot,
-                    movieID: response.data.imdbid,
+                    showInfo: response.data,
                     selectedValue: response.data.status
                 })
             })
@@ -50,16 +40,8 @@ class EditMovieInformation extends Component {
     handleSubmit = event => {
         event.preventDefault();
 
-        const movie = {
-            poster: this.state.moviePoster,
-            title: this.state.movieTitle,
-            genre: this.state.movieGenre,
-            type: this.state.movieType,
-            runtime: this.state.movieRuntime,
-            plot: this.state.moviePlot,
-            imdbid: this.state.movieID,
-            status: this.state.selectedValue 
-        }
+        const movie = this.state.showInfo // create a new object to send to the database
+        movie.status = this.state.selectedValue // add an additional property to the show object
 
         console.log(movie);
 
@@ -72,7 +54,6 @@ class EditMovieInformation extends Component {
                 });
                 console.log(res.data);
             })
-            // TODO: Not sure if this is a good way of returning an error
             .catch(error => {
                 this.setState({
                     postMessage: "Something went wrong! Couldn't update movie info.",
@@ -84,33 +65,33 @@ class EditMovieInformation extends Component {
 
     render() { 
         return ( 
-            <div className="movie-content-container">
-                <div className="movie-content-container-c1">
-                    <img src={this.state.moviePoster} className="movie-poster-mini" alt="" />
+            <div className="show-information-container row">
+                <div>
+                    <img src={this.state.showInfo.poster} className="show-poster" alt="" />
                 </div>
-                <div className="movie-content-container-c2">
-                    <div className="movie-content-container-c2-r1"> 
-                        <p className="movie-title">{this.state.movieTitle}</p>
-                        <p className="movie-genre">{this.state.movieGenre}</p>
-                        <p className="movie-runtime">{this.state.movieRuntime}</p>
-                        <p className="movie-plot">{this.state.moviePlot}</p>
+                <div>
+                    <div className="show-info-col2-row1"> 
+                        <p className="show-title">{this.state.showInfo.title}</p>
+                        <p className="show-genre">{this.state.showInfo.genre}</p>
+                        <p className="show-runtime">{this.state.showInfo.runtime}</p>
+                        <p className="show-plot">{this.state.showInfo.plot}</p>
                     </div>
-                    <div className="movie-content-container-c2-r2">
+                    <div className="show-info-col2-row2">
                         <form onSubmit={this.handleSubmit}>
-                            <div className="movie-form-c1">
-                                <label className="movie-form-label">Add to my list: </label>
+                            <div className="show-form-col1">
+                                <label className="show-form-label">Add to my list: </label>
                                 <select value={this.state.selectedValue} onChange={this.handleSelectChange} required>
                                     <option>Watching</option>
                                     <option>Watch later</option>
                                     <option>Watched</option>   
                                 </select>
                             </div>
-                            <div className="movie-form-c2">
-                                <button type="submit" className="movie-form-btn">Update option</button>
+                            <div className="show-form-col2">
+                                <button type="submit" className="show-form-btn stylish-btn">Update option</button>
                             </div>
                         </form>
                     </div>
-                    <div className="movie-content-container-c2-r3">
+                    <div className="show-content-col2-row3">
                         <p className={"post-mess-returned" + this.state.postMessClasses}>{this.state.postMessage}</p>
                     </div>
                 </div>
