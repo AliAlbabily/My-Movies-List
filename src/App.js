@@ -14,18 +14,18 @@ import LoginComponent from './components/login.component';
 
 function App() {
   return (
-    <Router>
-      <div className="start-point-component">
-        <Navbar />
-        <Route path="/" component={Home} exact />
-        <Route path="/searchmovies" component={SearchMovies} />
-        <Route path="/searchseries" component={SearchSeries} />
-        <Route path="/mymovieslist" component={MyMoviesList} />
-        <Route path="/movies/:id" component={MovieInformation} />
-        <Route path="/edit-movie-inforamtion/:id" component={EditMovieInformation} />
-        <Route path="/login" component={LoginComponent} />
-      </div>
-    </Router>
+    <div className="start-point-component">
+      <Router>
+          <Navbar />
+          <Route path="/" component={Home} exact />
+          <Route path="/searchmovies" component={SearchMovies} />
+          <Route path="/searchseries" component={SearchSeries} />
+          <Route path="/mymovieslist" component={MyMoviesList} />
+          <Route path="/movies/:id" component={MovieInformation} />
+          <Route path="/edit-movie-inforamtion/:id" component={EditMovieInformation} />
+          <Route path="/login" component={LoginComponent} />
+      </Router>
+    </div>
   );
 }
 

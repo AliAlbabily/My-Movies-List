@@ -25,7 +25,7 @@ class SavedMovie extends Component {
                 <td>{this.props.movie.status}</td>
                 <td>
                     <i className="far fa-edit"></i> <Link to={"/edit-movie-inforamtion/"+this.props.movie._id} className="table-edit-btn">Edit</Link> | 
-                    <i className="fas fa-trash"></i> <a className="table-remove-btn" href="#" onClick={() => { this.props.deleteMovie(this.props.movie._id) }}>Remove</a>
+                    <i className="fas fa-trash"></i> <a className="table-remove-btn" href="/#" onClick={() => { this.props.deleteMovie(this.props.movie._id) }}>Remove</a>
                 </td>
             </tr>
         );
