@@ -1,94 +1,96 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
 import { GoogleLogout } from 'react-google-login';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 
-class LoginComponent extends Component {
-    state = {
-        time: Date(),
-        isUserLoggedIn: false,
-        profileObject: {},
-        tokenObject: {}
-    }
+function LoginComponent(props) {
+    const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+    const [profileObject, setProfileObject] = useState(null);
 
-    componentDidMount() {
-        let current_datetime = new Date();
+    // state = {
+    //     time: Date(),
+    // }
 
-        this.setState({
-            time: current_datetime
-        })
-    }
+    // componentDidMount() {
+    //     let current_datetime = new Date();
 
-    jsDateToEpoch(date){
-        // d = javascript date obj
-        // returns epoch timestamp
-        return (date.getTime()-date.getMilliseconds())/1000;
-    }
+    //     this.setState({
+    //         time: current_datetime
+    //     })
+    // }
 
-    responseGoogle = (response) => {
-        console.log(response);
+    // jsDateToEpoch(date){
+    //     // d = javascript date obj
+    //     // returns epoch timestamp
+    //     return (date.getTime()-date.getMilliseconds())/1000;
+    // }
 
-        this.setState({
-            profileObject: response.profileObj,
-            tokenObject: response.tokenObj
-        })
+    const responseGoogle = (response) => {
+        console.log(response)
+
+        setProfileObject(response.profileObj)
 
         const responseObject = {
-            profileObject: this.state.profileObject,
-            tokenObject: this.state.tokenObject
+            profileObject: response.profileObj,
+            tokenObject: response.tokenObj
         }
 
-        // Send http post-request to the following endpoint
-        axios.post('http://localhost:5000/users/add', responseObject)
-        .then(
-            this.setState({
-                isUserLoggedIn: true
-            })
-        )
+        axios.post('http://localhost:5000/users/add', responseObject) // Send http post-request to the following endpoint
+            .then(setUserIsLoggedIn(true))
     }
 
-    logout = () => {
-        this.setState({
-            isUserLoggedIn: false
-        })
-    };
+    const logout = () => {
+        console.log("You are now logged out.")
+        setUserIsLoggedIn(false)
+    }
 
-    logoutFail() {
+    const logoutFail = () => {
         console.log("A problem was detected when you tried to logout. Please try again.")
     }
-
-    render() { 
-        return ( 
-            <div className="login-wrapper">
-                <div className="login-container">
-                    {!this.state.isUserLoggedIn && 
-                        <>
-                            <GoogleLogin
-                                clientId="1096045067364-n81mac1vk2nrgvgpqnb756a4r21i93us.apps.googleusercontent.com"
-                                buttonText="Login"
-                                onSuccess={this.responseGoogle}
-                                onFailure={this.responseGoogle}
-                                cookiePolicy={'single_host_origin'}
-                            />
-                        </>
-                    }
-                    {this.state.isUserLoggedIn &&
-                        <>
-                            <GoogleLogout
-                                clientId="1096045067364-n81mac1vk2nrgvgpqnb756a4r21i93us.apps.googleusercontent.com"
-                                buttonText="Logout"
-                                onLogoutSuccess={this.logout}
-                                onFailure={this.logoutFail}
-                            />
-                            <p>Welcome: {this.state.profileObject.name}</p>
-                            <p>Email: {this.state.profileObject.email}</p>
-                            <img src={this.state.profileObject.imageUrl} alt=""/>
-                        </>
-                    }
+    
+    return (
+        <Dialog open={props.open}>
+            <DialogTitle sx={{mx: 'auto'}}>Edit stats</DialogTitle>
+            <DialogContent>
+                <div className="login-wrapper">
+                    <div className="login-container">
+                        {!userIsLoggedIn &&
+                            <>
+                                <GoogleLogin
+                                    clientId={process.env.REACT_APP_CLIENT_ID}
+                                    buttonText="Login"
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                />
+                            </>
+                        }
+                        {userIsLoggedIn &&
+                            <>
+                                <GoogleLogout
+                                    clientId={process.env.REACT_APP_CLIENT_ID}
+                                    buttonText="Logout"
+                                    onLogoutSuccess={logout}
+                                    onFailure={logoutFail}
+                                />
+                                <p>Welcome: {profileObject.name}</p>
+                                <img src={profileObject.imageUrl} alt=""/>
+                            </>
+                        }
+                    </div>
                 </div>
-            </div>
-        );
-    }
+            </DialogContent>
+            <DialogActions>
+                <Button variant="outlined" color="warning" onClick={props.onClose}>Close</Button>
+            </DialogActions>
+        </Dialog> 
+        
+    );
 }
 
 export default LoginComponent;

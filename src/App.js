@@ -10,7 +10,6 @@ import SearchSeries from './components/searched-series-container';
 import MyMoviesList from './components/my-movies-list.component';
 import MovieInformation from './components/show-information';
 import EditMovieInformation from './components/edit-movie-information.component';
-import LoginComponent from './components/login.component';
 
 function App() {
   return (
@@ -23,7 +22,6 @@ function App() {
           <Route path="/mymovieslist" component={MyMoviesList} />
           <Route path="/movies/:id" component={MovieInformation} />
           <Route path="/edit-movie-inforamtion/:id" component={EditMovieInformation} />
-          <Route path="/login" component={LoginComponent} />
       </Router>
     </div>
   );
