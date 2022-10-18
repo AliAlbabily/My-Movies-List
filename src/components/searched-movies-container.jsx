@@ -59,7 +59,7 @@ class searchMovies extends Component {
         axios.post(`http://www.omdbapi.com/?apikey=71470024&s=${this.state.search}&type=movie&page=${this.state.currentPage+1}`)
             .then(res => {
                 console.log(res.data.Search)
-                res.data.Search.map(object => { // loop through the array
+                res.data.Search.forEach(object => { // loop through the array
                     this.setState({
                         movies: [...this.state.movies, object] // push each new object into movies-list inside the state
                     })
