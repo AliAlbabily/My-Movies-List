@@ -410,6 +410,7 @@
   font-weight: bold;
   color: Black;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .table-remove-btn:hover {
