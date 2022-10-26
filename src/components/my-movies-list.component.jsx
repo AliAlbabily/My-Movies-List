@@ -8,20 +8,11 @@ import SavedMovie from './saved-movie.component';
 function MyMoviesList() {
     const [filtering, setFiltering] = useState(false);
     const [displayedMovies, setDisplayedMovies] = useState();
-    
-    // this.state = {
-    //     allMovies: [],
-    //     currentlyWatching: [],
-    //     planningToWatch: [],
-    //     watchedMovies: [],
-    //     noFilteringIsMade: true,
-    //     runFilter: () => {},
-    //     allMoviesBtnIsClicked: true,
-    //     currentlyWatchingBtnIsClicked: false,
-    //     planningToWatchBtnIsClicked: false,
-    //     watchedMoviesBtnIsClicked: false
-    // }
-    
+    const [allMoviesBtnIsClicked, setAllMoviesBtnIsClicked] = useState(true);
+    const [currentlyWatchingBtnIsClicked, setCurrentlyWatchingBtnIsClicked] = useState(false);
+    const [planningToWatchBtnIsClicked, setPlanningToWatchBtnIsClicked] = useState(false);
+    const [watchedMoviesBtnIsClicked, setWatchedMoviesBtnIsClicked] = useState(false);
+    const [latestHighlightedBtnName, setLatestHighlightedBtnName] = useState("allMoviesBtn");
 
     useEffect(() => {
         // Get all my saved movies from the database
@@ -100,57 +91,49 @@ function MyMoviesList() {
             })
     }
 
+    function resetPreviousBtn(highlightedBtnName) {
+        if (latestHighlightedBtnName === "allMoviesBtn") setAllMoviesBtnIsClicked(false)
+        else if (latestHighlightedBtnName === "currentlyWatchingBtn") setCurrentlyWatchingBtnIsClicked(false)
+        else if (latestHighlightedBtnName === "planningToWatchBtn") setPlanningToWatchBtnIsClicked(false)
+        else if (latestHighlightedBtnName === "watchedMoviesBtn") setWatchedMoviesBtnIsClicked(false)
+        setLatestHighlightedBtnName(highlightedBtnName)
+    }
+
     return ( 
         <div className="moviesList-container">
             <div className="moviesList-c1">
-                {/* <div className={this.state.allMoviesBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} onClick={() => {
-                        this.setState({
-                            noFilteringIsMade: true,
-                            runFilter: this.getAllMovies(),
-                            allMoviesBtnIsClicked: true,
-                            currentlyWatchingBtnIsClicked: false,
-                            planningToWatchBtnIsClicked: false,
-                            watchedMoviesBtnIsClicked: false
-                        })
+                <div 
+                    className={allMoviesBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} 
+                    onClick={() => {
+                        resetPreviousBtn("allMoviesBtn")
+                        setAllMoviesBtnIsClicked(true)
                     }}>
                     All Movies
                 </div>
-                <div className={this.state.currentlyWatchingBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} onClick={() => {
-                        this.setState({
-                            noFilteringIsMade: false,
-                            runFilter: this.getCurrentlyWatching(),
-                            allMoviesBtnIsClicked: false,
-                            currentlyWatchingBtnIsClicked: true,
-                            planningToWatchBtnIsClicked: false,
-                            watchedMoviesBtnIsClicked: false
-                        })
+                <div 
+                    className={currentlyWatchingBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} 
+                    onClick={() => {
+                        resetPreviousBtn("currentlyWatchingBtn")
+                        setCurrentlyWatchingBtnIsClicked(true)
                     }}>
                     Watching
                 </div>
-                <div className={this.state.planningToWatchBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} onClick={() => {
-                        this.setState({
-                            noFilteringIsMade: false,
-                            runFilter: this.getPlanningToWatch(),
-                            allMoviesBtnIsClicked: false,
-                            currentlyWatchingBtnIsClicked: false,
-                            planningToWatchBtnIsClicked: true,
-                            watchedMoviesBtnIsClicked: false
-                        })
+                <div 
+                    className={planningToWatchBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} 
+                    onClick={() => {
+                        resetPreviousBtn("planningToWatchBtn")
+                        setPlanningToWatchBtnIsClicked(true)
                     }}>
                     Plan to Watch
                 </div>
-                <div className={this.state.watchedMoviesBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} onClick={() => {
-                        this.setState({
-                            noFilteringIsMade: false,
-                            runFilter: this.getWathedMovies(),
-                            allMoviesBtnIsClicked: false,
-                            currentlyWatchingBtnIsClicked: false,
-                            planningToWatchBtnIsClicked: false,
-                            watchedMoviesBtnIsClicked: true
-                        })
+                <div 
+                    className={watchedMoviesBtnIsClicked ? "moviesList-c1-filter-btn filter-is-clicked" : "moviesList-c1-filter-btn"} 
+                    onClick={() => {
+                        resetPreviousBtn("watchedMoviesBtn")
+                        setWatchedMoviesBtnIsClicked(true)
                     }}>
                     Watched
-                </div> */}
+                </div>
             </div>
             <div className="moviesList-c2">
                 <table className="content-table">
