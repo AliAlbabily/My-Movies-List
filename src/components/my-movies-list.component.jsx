@@ -43,7 +43,7 @@ function MyMoviesList() {
             .catch((error) => {
                 console.log(error);
             })
-    }, [displayedMovies])
+    }, []) /// empty array [] means this useEffect will run once similar to componentDidMount()
 
     // function getAllMovies() {
         // let itemNumberCounter = 0; 
@@ -79,7 +79,25 @@ function MyMoviesList() {
 
     function deleteMovie(id) {
         axios.delete('http://localhost:5000/movies/'+id)
-            .then(response => { console.log(response.data)})
+            .then(async response => { // async-await will make sure to print the result before updating the state
+                console.log(response.data)
+                await updateMoviesList()
+            })
+    }
+
+    /** update the list of movies by fetching a new movie list from the database */
+    async function updateMoviesList() {
+        await axios.get('http://localhost:5000/movies')
+            .then(
+                response => {
+                    setDisplayedMovies(response.data.map((movieObj, index) => {
+                        return <SavedMovie movie={movieObj} number={index+1} deleteMovie={deleteMovie} key={movieObj._id} />
+                    }))
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     return ( 
@@ -147,11 +165,7 @@ function MyMoviesList() {
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {   
-                            !filtering ? displayedMovies : console.log("this.state.runFilter") 
-                        }
-                    </tbody>
+                    <tbody>{ !filtering ? displayedMovies : console.log("this.state.runFilter") }</tbody>
                 </table>
             </div>
         </div>
