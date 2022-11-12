@@ -19,13 +19,6 @@ function MyMoviesList() {
         axios.get('http://localhost:5000/movies')
             .then(
                 response => {
-                    // this.setState({
-                    //     allMovies: response.data,
-                    //     currentlyWatching: response.data.filter(movieObj => movieObj.status === 'Watching'),
-                    //     planningToWatch: response.data.filter(movieObj => movieObj.status === 'Watch later'),
-                    //     watchedMovies: response.data.filter(movieObj => movieObj.status === 'Watched')
-                    // })
-
                     setDisplayedMovies(response.data.map((movieObj, index) => {
                         return <SavedMovie movie={movieObj} number={index+1} deleteMovie={deleteMovie} key={movieObj._id} />
                     }))
@@ -36,37 +29,24 @@ function MyMoviesList() {
             })
     }, []) /// empty array [] means this useEffect will run once similar to componentDidMount()
 
-    // function getAllMovies() {
-        // let itemNumberCounter = 0; 
-        // return movies.map(movieObj => {
-        //     itemNumberCounter++;
-        //     return <SavedMovie movie={movieObj} number={itemNumberCounter} deleteMovie={this.deleteMovie} key={movieObj._id} />
-        // })
-    // }
-
-    // getCurrentlyWatching() {
-    //     let itemNumberCounter = 0; 
-    //     return this.state.currentlyWatching.map(movieObj => {
-    //         itemNumberCounter++;
-    //         return <SavedMovie movie={movieObj} number={itemNumberCounter} deleteMovie={this.deleteMovie} key={movieObj._id} />
-    //     })
-    // }
-
-    // getPlanningToWatch() {
-    //     let itemNumberCounter = 0; 
-    //     return this.state.planningToWatch.map(movieObj => {
-    //         itemNumberCounter++;
-    //         return <SavedMovie movie={movieObj} number={itemNumberCounter} deleteMovie={this.deleteMovie} key={movieObj._id} />
-    //     })
-    // }
-
-    // getWathedMovies() {
-    //     let itemNumberCounter = 0; 
-    //     return this.state.watchedMovies.map(movieObj => {
-    //         itemNumberCounter++;
-    //         return <SavedMovie movie={movieObj} number={itemNumberCounter} deleteMovie={this.deleteMovie} key={movieObj._id} />   
-    //     })
-    // }
+    function filterMoviesList(selectedMovieStatus) {
+        if (selectedMovieStatus === "none") updateMoviesList()
+        else {
+            let itemNumberCounter = 0
+            axios.get('http://localhost:5000/movies').then(
+                response => {
+                    setDisplayedMovies(
+                        response.data.map(movieObj => {
+                            if (movieObj.status === selectedMovieStatus) {
+                                return <SavedMovie movie={movieObj} number={++itemNumberCounter} deleteMovie={deleteMovie} key={movieObj._id} />
+                            }
+                        })
+                    )
+                }
+            )
+            .catch((error) => {console.log(error)})
+        }
+    }
 
     function deleteMovie(id) {
         axios.delete('http://localhost:5000/movies/'+id)
@@ -107,6 +87,7 @@ function MyMoviesList() {
                     onClick={() => {
                         resetPreviousBtn("allMoviesBtn")
                         setAllMoviesBtnIsClicked(true)
+                        filterMoviesList("none")
                     }}>
                     All Movies
                 </div>
@@ -115,6 +96,7 @@ function MyMoviesList() {
                     onClick={() => {
                         resetPreviousBtn("currentlyWatchingBtn")
                         setCurrentlyWatchingBtnIsClicked(true)
+                        filterMoviesList("Watching")
                     }}>
                     Watching
                 </div>
@@ -123,6 +105,7 @@ function MyMoviesList() {
                     onClick={() => {
                         resetPreviousBtn("planningToWatchBtn")
                         setPlanningToWatchBtnIsClicked(true)
+                        filterMoviesList("Watch later")
                     }}>
                     Plan to Watch
                 </div>
@@ -131,6 +114,7 @@ function MyMoviesList() {
                     onClick={() => {
                         resetPreviousBtn("watchedMoviesBtn")
                         setWatchedMoviesBtnIsClicked(true)
+                        filterMoviesList("Watched")
                     }}>
                     Watched
                 </div>
