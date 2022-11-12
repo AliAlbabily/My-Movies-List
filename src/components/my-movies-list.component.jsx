@@ -30,7 +30,7 @@ function MyMoviesList() {
     }, []) /// empty array [] means this useEffect will run once similar to componentDidMount()
 
     function filterMoviesList(selectedMovieStatus) {
-        if (selectedMovieStatus === "none") updateMoviesList()
+        if (selectedMovieStatus === "none") getAllShows()
         else {
             let itemNumberCounter = 0
             axios.get('http://localhost:5000/movies').then(
@@ -48,16 +48,25 @@ function MyMoviesList() {
         }
     }
 
+    function updateList(id) {
+        setDisplayedMovies(prevList => {
+            return prevList.map(showObj => {
+                if (!showObj) return
+                if (showObj.props.movie._id != id) return showObj
+            })
+        })
+    }
+
     function deleteMovie(id) {
         axios.delete('http://localhost:5000/movies/'+id)
-            .then(async response => { // async-await will make sure to print the result before updating the state
+            .then(response => {
                 console.log(response.data)
-                await updateMoviesList()
+                updateList(id)
             })
     }
 
-    /** update the list of movies by fetching a new movie list from the database */
-    async function updateMoviesList() {
+    /** fetch a new list of shows from the database */
+    async function getAllShows() {
         await axios.get('http://localhost:5000/movies')
             .then(
                 response => {
@@ -66,9 +75,7 @@ function MyMoviesList() {
                     }))
                 }
             )
-            .catch((error) => {
-                console.log(error);
-            })
+            .catch((error) => console.log(error))
     }
 
     function resetPreviousBtn(highlightedBtnName) {
