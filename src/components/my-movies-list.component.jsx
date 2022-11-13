@@ -6,7 +6,6 @@ import '../App.css';
 import SavedMovie from './saved-movie.component';
 
 function MyMoviesList() {
-    const [filtering, setFiltering] = useState(false);
     const [displayedMovies, setDisplayedMovies] = useState();
     const [allMoviesBtnIsClicked, setAllMoviesBtnIsClicked] = useState(true);
     const [currentlyWatchingBtnIsClicked, setCurrentlyWatchingBtnIsClicked] = useState(false);
@@ -139,7 +138,7 @@ function MyMoviesList() {
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>{ !filtering ? displayedMovies : console.log("this.state.runFilter") }</tbody>
+                    <tbody>{displayedMovies}</tbody>
                 </table>
             </div>
         </div>
