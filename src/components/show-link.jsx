@@ -1,17 +1,15 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import '../App.css';
 
-class Movie extends Component {
+function Movie(props) {
 
-    render() {
-        return ( 
-            <Link to={"/movies/"+this.props.movieObj.imdbID} className="container-movie-link">
-                <img src={this.props.movieObj.Poster} alt="" />
-            </Link>
-        );
-    }
+    return ( 
+        <Link to={"/movies/"+props.movieObj.imdbID} className="container-movie-link">
+            <img src={props.movieObj.Poster} alt="" />
+        </Link>
+    );
 }
 
 export default Movie;
