@@ -41,7 +41,6 @@ function SearchMovies() {
     }
 
     function getMoreData(currentPageNumber) {
-        console.log(currentPageNumber);
         axios.post(`http://www.omdbapi.com/?apikey=71470024&s=${searchStringRef.current.value}&type=movie&page=${currentPageNumber}`)
         .then(res => {
             if (res.data.Search.length === 0) return // as long as there is more data
