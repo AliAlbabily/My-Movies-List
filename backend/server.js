@@ -18,7 +18,7 @@ app.listen(port, () => {
 // ***   MongoDB Connection   ***/
 const connection = mongoose.connection;
 
-mongoose.connect('mongodb://localhost:27017/MyMoviesList', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://127.0.0.1:27017/MyMoviesList', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
