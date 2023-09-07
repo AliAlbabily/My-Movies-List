@@ -129,8 +129,8 @@ function MyMoviesList() {
                 <table className="content-table">
                     <thead>
                         <tr>
-                            <th># <i className="fas fa-sort-numeric-down"></i></th>
-                            <th><i className="fas fa-images"></i> Image</th>
+                            <th>#</th>
+                            <th>Image</th>
                             <th>Title</th>
                             <th>Genre</th>
                             <th>Type</th>
