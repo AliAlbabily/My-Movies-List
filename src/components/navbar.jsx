@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import '../App.css';
-import LoginComponent from './login.component';
+import LoginComponent from './login-popup';
 
 function Navbar() {
     const [open, setOpen] = useState(false);

@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-import Movie from './show-link'
+import Movie from './show-card'
 
 function SearchMovies() {
     const searchStringRef = useRef();

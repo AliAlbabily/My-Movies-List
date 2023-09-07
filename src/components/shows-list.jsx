@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-import SavedMovie from './saved-movie.component';
+import SavedMovie from './saved-show';
 
 function MyMoviesList() {
     const [displayedMovies, setDisplayedMovies] = useState();

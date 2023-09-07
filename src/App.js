@@ -7,9 +7,9 @@ import Navbar from './components/navbar';
 import Home from './components/home';
 import SearchMovies from './components/searched-movies-container';
 import SearchSeries from './components/searched-series-container';
-import MyMoviesList from './components/my-movies-list.component';
-import MovieInformation from './components/show-information';
-import EditMovieInformation from './components/edit-movie-information.component';
+import MyMoviesList from './components/shows-list';
+import MovieInformation from './components/show-info-page';
+import EditMovieInformation from './components/edit-show-page';
 
 function App() {
   return (
