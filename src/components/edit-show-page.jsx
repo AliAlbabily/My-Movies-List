@@ -10,7 +10,6 @@ function EditMovieInformation(props) {
 
     // get a specific show, on page open, to edit
     useEffect(() => {
-        console.log("Triggered: useEffect 1")
         axios.get("http://localhost:5000/movies/"+props.match.params.id) 
             .then(response => {
                 console.log(response)

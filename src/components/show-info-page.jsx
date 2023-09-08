@@ -1,141 +1,123 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-class MovieInformation extends Component {
-    constructor(props) {
-        super(props);
+function MovieInformation(props) {
 
-        this.state = {
-            showInfo: {},
-            selectedValue: 'Watching',
-            postMessage: '',
-            postMessClasses: '',
-            showIsAdded: false
-        }
-    }
+    const [showInfo, setShowInfo] = useState({});
+    const selectedValueRef = useRef("");
+    const [postMessage, setPostMessage] = useState("");
+    const [postMessClasses, setPostMessClasses] = useState("");
+    const [showIsAlreadyAdded, setShowIsAlreadyAdded] = useState(false);
 
-    componentDidMount() {
-        axios.get('http://www.omdbapi.com/?apikey=71470024&i='+this.props.match.params.id)
+    // get a specific show, on page open, to view
+    useEffect(() => {
+        axios.get(`http://www.omdbapi.com/?apikey=71470024&i=${props.match.params.id}`)
             .then(response => {
                 console.log(response)
-
-                this.setState({
-                    showInfo: response.data
-                })
-
-                this.checkIfShowExistsInDB()
+                setShowInfo(response.data)
             })
             .catch(function(error) {
-                console.log(error);
+                console.log(error)
             })
-    }
+    }, [])
 
-    checkIfShowExistsInDB() {
-        // loop through all the shows in the database to check and compare each imdbID with the new one
-        axios.get('http://localhost:5000/movies/')
+    useEffect(() => {
+        checkIfShowExistsInDB()
+    }, [showInfo])
+
+    const checkIfShowExistsInDB = () => {
+        axios.get("http://localhost:5000/movies/")
             .then(response => {
-                const showsArrayOfIDs = response.data.map(showDBObj => showDBObj.imdbid)
-
-                if(showsArrayOfIDs.includes(this.state.showInfo.imdbID)) {
-                    this.setState({
-                        postMessage: 'This show exists in your list',
-                        postMessClasses: '',
-                        showIsAdded: true
-                    })
+                if (response.data) {
+                    // loop through all the shows in the database to check and compare each imdbID with the current one
+                    const showsArrayOfIDs = response.data.map(showDBObj => showDBObj.imdbid)
+                    if (showsArrayOfIDs.includes(showInfo.imdbID)) {
+                        setPostMessage("This show already exists in your list!")
+                        setPostMessClasses("")
+                        setShowIsAlreadyAdded(true)
+                    }
                 }
-            })
-    }
-
-    saveItemToDB(movieObj) {
-        axios.post('http://localhost:5000/movies/add', movieObj)
-            .then(res => {
-                this.setState({
-                    postMessage: "The movie was successfully added to your list!",
-                    postMessClasses: "successfull-mess"
-                });
-                console.log(res.data);
+                else throw new Error("Error checking the shows from the database.")
             })
             .catch(error => {
-                this.setState({
-                    postMessage: "Something went wrong!",
-                    postMessClasses: "unsuccessfull-mess"
-                })
-                console.log(error);
-            });
+                console.error(error)
+            })
     }
 
-    handleSelectChange = event => {
-        this.setState({
-            selectedValue: event.target.value
-        })
+    const saveShowToDB = movieObj => {
+        axios.post('http://localhost:5000/movies/add', movieObj)
+            .then(response => {
+                if (response.data) {
+                    setPostMessage("The show was successfully added to your list!")
+                    setPostMessClasses("successfull-mess")
+                }
+                else throw new Error("Adding the show has failed.")
+            })
+            .catch(error => {
+                console.error(error)
+                setPostMessage("Something went wrong!")
+                setPostMessClasses("unsuccessfull-mess")
+            })
     }
 
-    handleSubmit = event => {
-        event.preventDefault();
+    const handleSubmit = event => {
+        event.preventDefault()
 
         const movie = {
-            poster: this.state.showInfo.Poster,
-            title: this.state.showInfo.Title,
-            genre: this.state.showInfo.Genre,
-            type: this.state.showInfo.Type,
-            runtime: this.state.showInfo.Runtime,
-            plot: this.state.showInfo.Plot,
-            imdbid: this.state.showInfo.imdbID,
-            status: this.state.selectedValue 
+            poster: showInfo.Poster,
+            title: showInfo.Title,
+            genre: showInfo.Genre,
+            type: showInfo.Type,
+            runtime: showInfo.Runtime,
+            plot: showInfo.Plot,
+            imdbid: showInfo.imdbID,
+            status: selectedValueRef.current.value 
         }
 
-        if(this.state.showIsAdded) {
-            this.setState({
-                postMessage: 'You have already added this show to your list.',
-                postMessClasses: 'unsuccessfull-mess'
-            })
-        } 
+        if (showIsAlreadyAdded) {
+            setPostMessage("You have already added this show to your list.")
+            setPostMessClasses("unsuccessfull-mess")
+        }
         else {
-            this.saveItemToDB(movie)
-
-            // to prevent adding the same show more than one time
-            this.setState({
-                showIsAdded: true
-            })
+            saveShowToDB(movie)
+            setShowIsAlreadyAdded(true) // to prevent adding the same show more than one time
         }
     }
 
-    render() {
-        return (
-            <div className="show-information-container row">
-                <div>
-                    <img src={this.state.showInfo.Poster} className="show-poster" alt="" />
+    return ( 
+        <div className="show-information-container row">
+            <div>
+                <img src={showInfo.Poster} className="show-poster" alt="" />
+            </div>
+            <div>
+                <div className="show-info-col2-row1">
+                    <p className="show-title">{showInfo.Title}</p>
+                    <p className="show-plot">{showInfo.Plot}</p>
+                    <p className="show-genre">{showInfo.Genre}</p>
+                    <p className="show-runtime">{showInfo.Runtime}</p>
                 </div>
-                <div>
-                    <div className="show-info-col2-row1">
-                        <p className="show-title">{this.state.showInfo.Title}</p>
-                        <p className="show-plot">{this.state.showInfo.Plot}</p>
-                        <p className="show-genre">{this.state.showInfo.Genre}</p>
-                        <p className="show-runtime">{this.state.showInfo.Runtime}</p>
-                    </div>
-                    <div className="show-info-col2-row2">
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="show-form-col1">
-                                <label className="show-form-label">Add to my list:</label>
-                                <select value={this.state.selectedValue} onChange={this.handleSelectChange} required>
-                                    <option>Watching</option>
-                                    <option>Watch later</option>
-                                    <option>Watched</option>   
-                                </select>
-                            </div>
-                            <div className="show-form-col2">
-                                <button type="submit" className="show-form-btn stylish-btn">Save option</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="show-content-col2-row3">
-                        <p className={"post-mess-returned " + this.state.postMessClasses}>{this.state.postMessage}</p>
-                    </div>
+                <div className="show-info-col2-row2">
+                    <form onSubmit={handleSubmit}>
+                        <div className="show-form-col1">
+                            <label className="show-form-label">Add to my list:</label>
+                            <select ref={selectedValueRef} required>
+                                <option>Watching</option>
+                                <option>Watch later</option>
+                                <option>Watched</option>   
+                            </select>
+                        </div>
+                        <div className="show-form-col2">
+                            <button type="submit" className="show-form-btn stylish-btn">Save option</button>
+                        </div>
+                    </form>
+                </div>
+                <div className="show-content-col2-row3">
+                    <p className={"post-mess-returned " + postMessClasses}>{postMessage}</p>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default MovieInformation;
