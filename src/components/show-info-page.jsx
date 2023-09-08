@@ -3,7 +3,6 @@ import axios from 'axios';
 import '../App.css';
 
 function MovieInformation(props) {
-
     const [showInfo, setShowInfo] = useState({});
     const selectedValueRef = useRef("");
     const [postMessage, setPostMessage] = useState("");
