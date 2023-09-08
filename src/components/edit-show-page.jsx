@@ -1,103 +1,83 @@
 
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-class EditMovieInformation extends Component { 
-    constructor(props) {
-        super(props);
+function EditMovieInformation(props) {
+    const [showInfo, setShowInfo] = useState({});
+    const selectedValueRef = useRef("");
+    const [postMessage, setPostMessage] = useState("");
+    const [postMessClasses, setPostMessClasses] = useState("");
 
-        this.state = {
-            showInfo: {},
-            selectedValue: '',
-            postMessage: '',
-            // TODO: not a likeable solution
-            postMessClasses: ''
-        }
-    }
-    
-    componentDidMount() {
-        axios.get('http://localhost:5000/movies/'+this.props.match.params.id) 
+    // get a specific show, on page open, to edit
+    useEffect(() => {
+        console.log("Triggered: useEffect 1")
+        axios.get("http://localhost:5000/movies/"+props.match.params.id) 
             .then(response => {
                 console.log(response)
-
-                this.setState({
-                    showInfo: response.data,
-                    selectedValue: response.data.status
-                })
+                setShowInfo(response.data)
             })
             .catch(function(error){
-                console.log(error);
+                console.log(error)
             })
-    }
+    }, []) // empty array [] means this useEffect will at least once on render
 
-    handleSelectChange = event => {
-        this.setState({
-            selectedValue: event.target.value
-        })
-    }
+    const handleSubmit = event => {
+        event.preventDefault()
+        
+        // object spread syntax to create a new object with an updated property
+        const updatedObject = {
+            ...showInfo,  // copy all properties from "showInfo"
+            status: selectedValueRef.current.value  // update the "status" property
+        }
 
-    handleSubmit = event => {
-        event.preventDefault();
-
-        const movie = this.state.showInfo // create a new object to send to the database
-        movie.status = this.state.selectedValue // add an additional property to the show object
-
-        console.log(movie);
-
-        // Do an update-request
-        axios.post('http://localhost:5000/movies/update/'+this.props.match.params.id, movie)
-            .then(res => {
-                this.setState({
-                    postMessage: "Successfully updated!",
-                    postMessClasses: " successfull-mess"
-                });
-                console.log(res.data);
+        // post request to update the show's status
+        axios.post(`http://localhost:5000/movies/update/${props.match.params.id}`, updatedObject)
+            .then(response => {
+                setPostMessage("Successfully updated!")
+                setPostMessClasses("successfull-mess")
+                console.log(response.data)
             })
             .catch(error => {
-                this.setState({
-                    postMessage: "Something went wrong! Couldn't update movie info.",
-                    postMessClasses: " unsuccessfull-mess"
-                })
-                console.log(error);
-            });
+                setPostMessage("Something went wrong! Couldn't update movie info.")
+                setPostMessClasses("unsuccessfull-mess")
+                console.log(error)
+            })
     }
 
-    render() { 
-        return ( 
-            <div className="show-information-container row">
-                <div>
-                    <img src={this.state.showInfo.poster} className="show-poster" alt="" />
+    return ( 
+        <div className="show-information-container row">
+            <div>
+                <img src={showInfo.poster} className="show-poster" alt="" />
+            </div>
+            <div>
+                <div className="show-info-col2-row1"> 
+                    <p className="show-title">{showInfo.title}</p>
+                    <p className="show-genre">{showInfo.genre}</p>
+                    <p className="show-runtime">{showInfo.runtime}</p>
+                    <p className="show-plot">{showInfo.plot}</p>
                 </div>
-                <div>
-                    <div className="show-info-col2-row1"> 
-                        <p className="show-title">{this.state.showInfo.title}</p>
-                        <p className="show-genre">{this.state.showInfo.genre}</p>
-                        <p className="show-runtime">{this.state.showInfo.runtime}</p>
-                        <p className="show-plot">{this.state.showInfo.plot}</p>
-                    </div>
-                    <div className="show-info-col2-row2">
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="show-form-col1">
-                                <label className="show-form-label">Add to my list: </label>
-                                <select value={this.state.selectedValue} onChange={this.handleSelectChange} required>
-                                    <option>Watching</option>
-                                    <option>Watch later</option>
-                                    <option>Watched</option>   
-                                </select>
-                            </div>
-                            <div className="show-form-col2">
-                                <button type="submit" className="show-form-btn stylish-btn">Update option</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="show-content-col2-row3">
-                        <p className={"post-mess-returned" + this.state.postMessClasses}>{this.state.postMessage}</p>
-                    </div>
+                <div className="show-info-col2-row2">
+                    <form onSubmit={handleSubmit}>
+                        <div className="show-form-col1">
+                            <label className="show-form-label">Add to my list: </label>
+                            <select ref={selectedValueRef} required> 
+                                <option>Watching</option>
+                                <option>Watch later</option>
+                                <option>Watched</option>   
+                            </select>
+                        </div>
+                        <div className="show-form-col2">
+                            <button type="submit" className="show-form-btn stylish-btn">Update option</button>
+                        </div>
+                    </form>
+                </div>
+                <div className="show-content-col2-row3">
+                    <p className={"post-mess-returned " + postMessClasses}>{postMessage}</p>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default EditMovieInformation;
