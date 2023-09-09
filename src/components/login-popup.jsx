@@ -12,24 +12,6 @@ function LoginComponent(props) {
     const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
     const [profileObject, setProfileObject] = useState(null);
 
-    // state = {
-    //     time: Date(),
-    // }
-
-    // componentDidMount() {
-    //     let current_datetime = new Date();
-
-    //     this.setState({
-    //         time: current_datetime
-    //     })
-    // }
-
-    // jsDateToEpoch(date){
-    //     // d = javascript date obj
-    //     // returns epoch timestamp
-    //     return (date.getTime()-date.getMilliseconds())/1000;
-    // }
-
     const responseGoogle = (response) => {
         console.log(response)
 
@@ -94,8 +76,3 @@ function LoginComponent(props) {
 }
 
 export default LoginComponent;
-
-
-// 1. Save user info in the database the first time he/she logs in
-
-// 2. If the users Access_token is still valid, keep displaying user info on the page till the user logs out. 
