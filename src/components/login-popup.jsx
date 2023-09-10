@@ -12,7 +12,7 @@ function LoginComponent(props) {
     const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
     const [profileObject, setProfileObject] = useState(null);
 
-    const responseGoogle = (response) => {
+    const handleSuccessResponse = (response) => {
         console.log(response)
 
         setProfileObject(response.profileObj)
@@ -24,6 +24,10 @@ function LoginComponent(props) {
 
         axios.post('http://localhost:5000/users/add', responseObject) // Send http post-request to the following endpoint
             .then(setUserIsLoggedIn(true))
+    }
+
+    const handleFailedResponse = (response) => {
+        console.log(`Authentication failed. ${response.error}`)
     }
 
     const logout = () => {
@@ -46,8 +50,8 @@ function LoginComponent(props) {
                                 <GoogleLogin
                                     clientId={process.env.REACT_APP_CLIENT_ID}
                                     buttonText="Login"
-                                    onSuccess={responseGoogle}
-                                    onFailure={responseGoogle}
+                                    onSuccess={handleSuccessResponse}
+                                    onFailure={handleFailedResponse}
                                     cookiePolicy={'single_host_origin'}
                                 />
                             </>
