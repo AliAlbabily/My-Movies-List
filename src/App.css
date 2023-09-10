@@ -77,6 +77,7 @@
   text-shadow: 2px 2px 5px Black;
   text-decoration: none;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .link-style:hover {
@@ -436,18 +437,18 @@
 /* login component */
 /* ------------------------------------------------ */
 
-.login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.popup-btn {
+  height: 30px;
+  width: 100%;
+  font-size: large;
+  transition: ease 0.3s;
+}
+
+.popup-btn:hover {
+  background-color: #747474;
 }
 
 .login-container {
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.25);
-  -moz-box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.25);
-  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.25);
-  height: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;

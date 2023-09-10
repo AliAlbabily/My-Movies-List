@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
 import { GoogleLogout } from 'react-google-login';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -23,7 +22,13 @@ function LoginComponent(props) {
         }
 
         axios.post('http://localhost:5000/users/add', responseObject) // Send http post-request to the following endpoint
-            .then(setUserIsLoggedIn(true))
+            .then(response => {
+                if (response.data) setUserIsLoggedIn(true)
+                else throw new Error("Something went wrong when trying to add a new user.")
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
 
     const handleFailedResponse = (response) => {
@@ -41,41 +46,36 @@ function LoginComponent(props) {
     
     return (
         <Dialog open={props.open}>
-            <DialogTitle sx={{mx: 'auto'}}>Edit stats</DialogTitle>
-            <DialogContent>
-                <div className="login-wrapper">
-                    <div className="login-container">
-                        {!userIsLoggedIn &&
-                            <>
-                                <GoogleLogin
-                                    clientId={process.env.REACT_APP_CLIENT_ID}
-                                    buttonText="Login"
-                                    onSuccess={handleSuccessResponse}
-                                    onFailure={handleFailedResponse}
-                                    cookiePolicy={'single_host_origin'}
-                                />
-                            </>
-                        }
-                        {userIsLoggedIn &&
-                            <>
-                                <GoogleLogout
-                                    clientId={process.env.REACT_APP_CLIENT_ID}
-                                    buttonText="Logout"
-                                    onLogoutSuccess={logout}
-                                    onFailure={logoutFail}
-                                />
-                                <p>Welcome: {profileObject.name}</p>
-                                <img src={profileObject.imageUrl} alt=""/>
-                            </>
-                        }
-                    </div>
-                </div>
+            <DialogTitle sx={{mx: 'auto'}}>Account inforamtion</DialogTitle>
+            <DialogContent className="login-container">
+                {!userIsLoggedIn &&
+                    <>
+                        <GoogleLogin
+                            clientId={process.env.REACT_APP_CLIENT_ID}
+                            buttonText="Login"
+                            onSuccess={handleSuccessResponse}
+                            onFailure={handleFailedResponse}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                    </>
+                }
+                {userIsLoggedIn &&
+                    <>
+                        <img src={profileObject.imageUrl} alt=""/>
+                        <p>Logged in as: {profileObject.name}</p>
+                        <GoogleLogout
+                            clientId={process.env.REACT_APP_CLIENT_ID}
+                            buttonText="Logout"
+                            onLogoutSuccess={logout}
+                            onFailure={logoutFail}
+                        />
+                    </>
+                }
             </DialogContent>
             <DialogActions>
-                <Button variant="outlined" color="warning" onClick={props.onClose}>Close</Button>
+                <button onClick={props.onClose} className="stylish-btn popup-btn">Close</button>
             </DialogActions>
         </Dialog> 
-        
     );
 }
 
