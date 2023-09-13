@@ -10,15 +10,18 @@ function EditMovieInformation(props) {
 
     // get a specific show, on page open, to edit
     useEffect(() => {
-        axios.get("http://localhost:5000/movies/"+props.match.params.id) 
+        axios.get("http://localhost:5000/movies/"+props.match.params.id)
             .then(response => {
-                console.log(response)
-                setShowInfo(response.data)
+                if (response.data) {
+                    console.log(response)
+                    setShowInfo(response.data)
+                }
+                else throw new Error("Something went wrong when trying to get saved show info.")
             })
             .catch(function(error){
-                console.log(error)
+                console.error(error)
             })
-    }, []) // empty array [] means this useEffect will at least once on render
+    }, [])
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -32,14 +35,17 @@ function EditMovieInformation(props) {
         // post request to update the show's status
         axios.post(`http://localhost:5000/movies/update/${props.match.params.id}`, updatedObject)
             .then(response => {
-                setPostMessage("Successfully updated!")
-                setPostMessClasses("successfull-mess")
-                console.log(response.data)
+                if (response.data) {
+                    console.log(response.data)
+                    setPostMessage("Successfully updated!")
+                    setPostMessClasses("successfull-mess")
+                }
+                else throw new Error("Something went wrong when trying to update the show info.")
             })
             .catch(error => {
-                setPostMessage("Something went wrong! Couldn't update movie info.")
+                setPostMessage("Something went wrong! Couldn't update the show info.")
                 setPostMessClasses("unsuccessfull-mess")
-                console.log(error)
+                console.error(error)
             })
     }
 
