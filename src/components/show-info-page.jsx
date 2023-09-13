@@ -11,7 +11,7 @@ function MovieInformation(props) {
 
     // get a specific show, on page open, to view
     useEffect(() => {
-        axios.get(`http://www.omdbapi.com/?apikey=71470024&i=${props.match.params.id}`)
+        axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDBAPI_API_KEY}&i=${props.match.params.id}`)
             .then(response => {
                 console.log(response)
                 setShowInfo(response.data)

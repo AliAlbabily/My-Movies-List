@@ -18,7 +18,7 @@ function SearchSeries() {
         event.preventDefault()
 
         // send an http post-request to the following endpoint & bring back info
-        axios.post(`http://www.omdbapi.com/?apikey=71470024&s=${searchStringRef.current.value}&type=series`)
+        axios.post(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDBAPI_API_KEY}&s=${searchStringRef.current.value}&type=series`)
             .then(res => {
                 console.log(res.data)
                 if(res.data.Response === "True") {

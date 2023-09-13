@@ -18,7 +18,7 @@ function SearchMovies() {
         event.preventDefault()
 
         // Send an http post-request to the following endpoint & bring back info
-        axios.post(`http://www.omdbapi.com/?apikey=71470024&s=${searchStringRef.current.value}&type=movie`)
+        axios.post(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDBAPI_API_KEY}&s=${searchStringRef.current.value}&type=movie`)
             .then(res => {
                 if(res.data.Search) {
                     console.log(res.data.Search)
@@ -40,7 +40,7 @@ function SearchMovies() {
     }
 
     function getMoreData(currentPageNumber) {
-        axios.post(`http://www.omdbapi.com/?apikey=71470024&s=${searchStringRef.current.value}&type=movie&page=${currentPageNumber}`)
+        axios.post(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDBAPI_API_KEY}&s=${searchStringRef.current.value}&type=movie&page=${currentPageNumber}`)
         .then(res => {
             if (res.data.Search.length === 0) return // as long as there is more data
 
