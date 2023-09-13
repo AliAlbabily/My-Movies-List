@@ -13,19 +13,8 @@ function MyMoviesList() {
     const [latestHighlightedBtnName, setLatestHighlightedBtnName] = useState("allMoviesBtn");
 
     useEffect(() => {
-        // Get all my saved movies from the database
-        axios.get('http://localhost:5000/movies')
-            .then(
-                response => {
-                    setDisplayedMovies(response.data.map((movieObj, index) => {
-                        return <SavedMovie movie={movieObj} number={index+1} deleteMovie={deleteMovie} key={movieObj._id} />
-                    }))
-                }
-            )
-            .catch((error) => {
-                console.log(error);
-            })
-    }, []) /// empty array [] means this useEffect will run once similar to componentDidMount()
+        getAllShows()
+    }, [])
 
     function filterMoviesList(selectedMovieStatus) {
         if (selectedMovieStatus === "none") getAllShows()
@@ -33,16 +22,21 @@ function MyMoviesList() {
             let itemNumberCounter = 0
             axios.get('http://localhost:5000/movies').then(
                 response => {
-                    setDisplayedMovies(
-                        response.data.map(movieObj => {
-                            if (movieObj.status === selectedMovieStatus) {
-                                return <SavedMovie movie={movieObj} number={++itemNumberCounter} deleteMovie={deleteMovie} key={movieObj._id} />
-                            }
-                        })
-                    )
+                    if (response.data) {
+                        setDisplayedMovies(
+                            response.data.map(movieObj => {
+                                if (movieObj.status === selectedMovieStatus) {
+                                    return <SavedMovie movie={movieObj} number={++itemNumberCounter} deleteMovie={deleteMovie} key={movieObj._id} />
+                                }
+                            })
+                        )
+                    }
+                    else throw new Error("Something went wrong when trying to fetch & filter shows.")
                 }
             )
-            .catch((error) => {console.log(error)})
+            .catch((error) => {
+                console.error(error)
+            })
         }
     }
 
@@ -63,17 +57,22 @@ function MyMoviesList() {
             })
     }
 
-    /** fetch a new list of shows from the database */
-    async function getAllShows() {
-        await axios.get('http://localhost:5000/movies')
+    // fetch a new list of shows from the database
+    function getAllShows() {
+        axios.get('http://localhost:5000/movies')
             .then(
                 response => {
-                    setDisplayedMovies(response.data.map((movieObj, index) => {
-                        return <SavedMovie movie={movieObj} number={index+1} deleteMovie={deleteMovie} key={movieObj._id} />
-                    }))
+                    if (response.data) {
+                        setDisplayedMovies(response.data.map((movieObj, index) => {
+                            return <SavedMovie movie={movieObj} number={index+1} deleteMovie={deleteMovie} key={movieObj._id} />
+                        }))
+                    }
+                    else throw new Error("Something went wrong when trying to fetch all shows.")
                 }
             )
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
     function resetPreviousBtn(highlightedBtnName) {
