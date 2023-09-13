@@ -45,7 +45,7 @@ function LoginComponent(props) {
     }
     
     return (
-        <Dialog open={props.open}>
+        <Dialog onClose={props.onClose} open={props.open}>
             <DialogTitle sx={{mx: 'auto'}}>Account inforamtion</DialogTitle>
             <DialogContent className="login-container">
                 {!userIsLoggedIn &&

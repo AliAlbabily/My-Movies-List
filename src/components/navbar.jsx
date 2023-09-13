@@ -6,7 +6,7 @@ import LoginComponent from './login-popup';
 function Navbar() {
     const [open, setOpen] = useState(false);
 
-    const handleClickOpen = () => {
+    const openLoginPopup = () => {
         setOpen(true)
     }
 
@@ -23,7 +23,7 @@ function Navbar() {
                 <li><Link to="/mymovieslist" className="link-style">My list</Link></li>
             </ul>
             <div className="navbar-second-column">
-                <span className="link-style" onClick={handleClickOpen}>Sign in with Google: <i className="fas fa-sign-in-alt"></i></span>
+                <span className="link-style" onClick={openLoginPopup}>Sign in with Google: <i className="fas fa-sign-in-alt"></i></span>
                 <LoginComponent open={open} onClose={handleClose} />
             </div>
         </div>
